@@ -1,10 +1,27 @@
 import { test, expect } from '@playwright/test';
 
-test('homepage has title and main elements', async ({ page }) => {
-  await page.goto('/');
+test.describe('Home Page', () => {
+  test('should render hero section, featured projects, and CTA', async ({ page }) => {
+    await page.goto('/');
 
-  // Expect a title "to contain" a substring.
-  // We can update this when we know the exact title, for now check it's not empty
-  const title = await page.title();
-  expect(title.length).toBeGreaterThan(0);
+    await expect(page).toHaveTitle(/Diogo Santoro/);
+
+    const heroHeading = page.locator('h1').first();
+    await expect(heroHeading).toBeVisible();
+    await expect(heroHeading).toContainText(/Diogo/i);
+
+    const featuredSection = page.locator('section').filter({ hasText: 'Featured Work' });
+    await expect(featuredSection).toBeVisible();
+
+    const projectLinks = featuredSection.locator('a');
+    expect(await projectLinks.count()).toBeGreaterThan(0);
+    const ctaSection = page.locator('section').filter({ hasText: /Want to see everything/i });
+    await expect(ctaSection).toBeVisible();
+    
+    const ctaLink = ctaSection.locator('a', { hasText: /View All Projects/i });
+    if (await ctaLink.isVisible()) {
+        await ctaLink.click();
+        await expect(page).toHaveURL(/.*\/projects/);
+    }
+  });
 });
