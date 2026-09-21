@@ -44,6 +44,14 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en">
+      <head>
+        {/* Security enhancement: Added Content Security Policy (CSP) to mitigate Cross-Site Scripting (XSS) and data injection attacks. */}
+        {/* Note: 'unsafe-inline' and 'unsafe-eval' are used due to Next.js static export constraints. */}
+        <meta
+          httpEquiv="Content-Security-Policy"
+          content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self';"
+        />
+      </head>
       <body>
         <Header />
         <main>{children}</main>
