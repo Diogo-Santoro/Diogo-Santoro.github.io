@@ -1,0 +1,4 @@
+## 2024-05-24 - CSP on Next.js Static Exports
+**Vulnerability:** The application was missing a Content Security Policy (CSP), leaving it potentially vulnerable to Cross-Site Scripting (XSS) and data injection attacks.
+**Learning:** For Next.js applications configured with `output: 'export'` (Static HTML Export), using `next.config.ts` to set HTTP headers does not work and causes build failures. Instead, CSP must be configured via `<meta http-equiv="Content-Security-Policy">` in the `app/layout.tsx` (or document head) for static sites, or handled entirely by the hosting platform (e.g., Cloudflare, Netlify configs).
+**Prevention:** Always verify if a Next.js app is statically exported before attempting to use the `headers()` method in `next.config.ts`. Use HTML meta tags for basic static-site security headers.
