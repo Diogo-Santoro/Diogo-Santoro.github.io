@@ -45,3 +45,9 @@ test-results/
 playwright-report/
 blob-report/
 playwright/.cache/
+
+# lighthouse
+.lighthouseci/
+
+# husky
+.husky/_
