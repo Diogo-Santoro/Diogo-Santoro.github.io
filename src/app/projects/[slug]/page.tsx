@@ -5,14 +5,12 @@ import { notFound } from "next/navigation";
 import ScrollReveal from "@/components/atoms/ScrollReveal";
 import MagneticButton from "@/components/atoms/MagneticButton";
 
-// Generate all project slugs at build time
 export function generateStaticParams() {
   return projects.map((project) => ({
     slug: project.slug,
   }));
 }
 
-// Dynamic metadata
 export async function generateMetadata({
   params,
 }: {
@@ -40,7 +38,6 @@ export default async function ProjectDetailPage({
     notFound();
   }
 
-  // Find previous/next projects for navigation
   const currentIndex = projects.findIndex((p) => p.slug === slug);
   const prevProject = currentIndex > 0 ? projects[currentIndex - 1] : null;
   const nextProject =
