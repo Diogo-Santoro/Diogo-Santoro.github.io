@@ -2,8 +2,11 @@
   "ci": {
     "collect": {
       "startServerCommand": "npm run build && npm run start",
-      "url": ["http://localhost:3000/"],
-      "numberOfRuns": 1
+      "url": ["http://127.0.0.1:3000/"],
+      "numberOfRuns": 1,
+      "settings": {
+        "chromeFlags": "--ignore-certificate-errors --no-sandbox --allow-insecure-localhost --disable-web-security"
+      }
     },
     "assert": {
       "assertions": {
