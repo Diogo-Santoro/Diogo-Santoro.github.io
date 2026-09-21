@@ -1,2 +1,23 @@
-# Diogo-Santoro.github.io
-My personal portfolio, explaining my experience and presenting myself for anyone interested in my work. Feel free to suggest changes for this repo :)
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+## Getting Started
+
+First, run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+
+## AI-Assisted Development
+
+This project was built and is continuously improved using AI, specifically with the help of **Jules** and Google Antigravity.
