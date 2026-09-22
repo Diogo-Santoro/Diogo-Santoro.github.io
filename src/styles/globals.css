@@ -1444,3 +1444,17 @@ h4 {
     text-align: center;
   }
 }
+
+/* ============================================================
+   25. ACCESSIBILITY
+   ============================================================ */
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+/* Remove default focus outline for mouse users but keep for keyboard */
+*:focus:not(:focus-visible) {
+  outline: none;
+}
