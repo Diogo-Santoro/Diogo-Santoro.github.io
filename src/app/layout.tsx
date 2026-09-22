@@ -44,6 +44,14 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en">
+      <head>
+        {/* 🛡️ Sentinel: Adding CSP to prevent unauthorized resources (mitigates XSS).
+            Using meta tag because next.config.ts headers are not supported in static exports. */}
+        <meta
+          httpEquiv="Content-Security-Policy"
+          content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:;"
+        />
+      </head>
       <body>
         <Header />
         <main>{children}</main>
