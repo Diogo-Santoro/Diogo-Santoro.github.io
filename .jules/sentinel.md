@@ -1,0 +1,4 @@
+## 2025-02-14 - Content-Security-Policy in Next.js Static Export
+**Vulnerability:** Missing Content-Security-Policy (CSP) headers leaving the application vulnerable to Cross-Site Scripting (XSS) and data injection.
+**Learning:** Next.js applications configured for static export (`output: 'export'`) do not support server-side features like `headers()` in `next.config.ts`. Security headers like CSP must be applied via `<meta>` tags in `src/app/layout.tsx`. Furthermore, using `'unsafe-eval'` alongside `'unsafe-inline'` for scripts in development undermines XSS protection, but may be necessary for Next.js development tools. In production, we can safely omit `'unsafe-eval'`.
+**Prevention:** Apply CSP via `<meta>` tags for static exports. Ensure development builds allow `'unsafe-eval'` if needed, while production builds omit it for robust XSS protection. Check network dependencies to ensure directives like `connect-src` and `img-src` do not break external functionality.
