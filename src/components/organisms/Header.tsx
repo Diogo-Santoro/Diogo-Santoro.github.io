@@ -55,6 +55,7 @@ export default function Header() {
               key={link.href}
               href={link.href}
               className={`header__link ${isActive(link.href) ? "header__link--active" : ""}`}
+              aria-current={isActive(link.href) ? "page" : undefined}
             >
               {link.label}
             </Link>
@@ -66,6 +67,7 @@ export default function Header() {
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
           aria-expanded={mobileOpen}
+          aria-controls="mobile-navigation"
           id="mobile-menu-toggle"
         >
           <span />
@@ -74,6 +76,7 @@ export default function Header() {
         </button>
 
         <nav
+          id="mobile-navigation"
           className={`header__mobile-nav ${mobileOpen ? "header__mobile-nav--open" : ""}`}
           aria-label="Mobile navigation"
         >
@@ -83,6 +86,7 @@ export default function Header() {
               href={link.href}
               className="header__mobile-link"
               onClick={() => setMobileOpen(false)}
+              aria-current={isActive(link.href) ? "page" : undefined}
             >
               {link.label}
             </Link>
