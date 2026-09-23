@@ -1,5 +1,30 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
+
+import { Inter, Instrument_Serif, JetBrains_Mono } from "next/font/google";
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+  variable: "--font-sans",
+  display: "swap",
+});
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: ["400"],
+  style: ["normal", "italic"],
+  variable: "--font-serif",
+  display: "swap",
+});
+
+const jetBrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-mono",
+  display: "swap",
+});
+
 import Header from "@/components/organisms/Header";
 import Footer from "@/components/organisms/Footer";
 
@@ -43,7 +68,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${inter.variable} ${instrumentSerif.variable} ${jetBrainsMono.variable}`}>
       <body>
         <Header />
         <main>{children}</main>
