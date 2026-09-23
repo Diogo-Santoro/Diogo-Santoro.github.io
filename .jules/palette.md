@@ -1,0 +1,3 @@
+## 2024-05-18 - Header Navigation Accessibility Improvement
+**Learning:** Next.js dynamic routing with `usePathname` should be complemented by explicit accessibility attributes (`aria-current="page"`) to convey the active navigation state clearly to screen readers, which is not handled automatically by custom active CSS classes.
+**Action:** When creating or maintaining navigation components utilizing Next.js routing, ensure `aria-current="page"` is dynamically assigned alongside visual active state indicators, and make sure mobile navigation toggles explicitly reference their targeted containers using `aria-controls`.
