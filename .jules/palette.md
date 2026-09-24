@@ -1,0 +1,3 @@
+## 2024-09-24 - Missing Focus Visible Rings
+**Learning:** This Next.js portfolio application lacked global focus indicators (specifically `:focus-visible`) out-of-the-box, significantly hindering keyboard navigation for users who rely on it (accessibility violation). The application has a strong existing color palette (via CSS variables) that wasn't being utilized for keyboard feedback.
+**Action:** When working on new interactive components or creating a global style reset, ensure `*:focus-visible` or similar rules are added to explicitly define accessible focus outlines. Apply CSS variables like `var(--accent)` for a native-feeling, high-contrast focus ring.
