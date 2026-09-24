@@ -1,0 +1,3 @@
+## 2024-10-24 - Google Fonts @import Anti-pattern
+**Learning:** In Next.js applications, loading fonts via CSS `@import url("https://fonts.googleapis.com/...")` is a significant performance anti-pattern. It creates render-blocking network requests, delays text rendering (FOUC), and can increase Cumulative Layout Shift (CLS). The `next/font` module solves this by downloading fonts at build time and hosting them locally alongside other static assets, completely removing the external network dependency and render blocking.
+**Action:** Always use `next/font/google` (or `next/font/local`) in Next.js applications instead of `@import` or `<link>` tags to Google Fonts. Apply the generated font variables to the root `<html>` or `<body>` element.
