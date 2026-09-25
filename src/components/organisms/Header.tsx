@@ -55,6 +55,7 @@ export default function Header() {
               key={link.href}
               href={link.href}
               className={`header__link ${isActive(link.href) ? "header__link--active" : ""}`}
+              aria-current={isActive(link.href) ? "page" : undefined}
             >
               {link.label}
             </Link>
@@ -81,8 +82,9 @@ export default function Header() {
             <Link
               key={link.href}
               href={link.href}
-              className="header__mobile-link"
+              className={`header__mobile-link ${isActive(link.href) ? "text-accent" : ""}`}
               onClick={() => setMobileOpen(false)}
+              aria-current={isActive(link.href) ? "page" : undefined}
             >
               {link.label}
             </Link>
