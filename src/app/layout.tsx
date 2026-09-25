@@ -41,9 +41,26 @@ export const metadata: Metadata = {
   },
 };
 
+// Generate strict Content Security Policy
+// 'unsafe-inline' is required for Next.js App Router hydration in static exports
+// 'unsafe-eval' is conditionally added only in development for Fast Refresh (HMR)
+const csp = `
+  default-src 'self';
+  script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === "development" ? " 'unsafe-eval'" : ""};
+  style-src 'self' 'unsafe-inline';
+  img-src 'self' data: https:;
+  font-src 'self';
+  connect-src 'self';
+`
+  .replace(/\s{2,}/g, " ")
+  .trim();
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en">
+      <head>
+        <meta httpEquiv="Content-Security-Policy" content={csp} />
+      </head>
       <body>
         <Header />
         <main>{children}</main>
