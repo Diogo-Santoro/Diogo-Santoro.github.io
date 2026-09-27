@@ -1,0 +1,4 @@
+## 2025-02-28 - Next.js Static Export Security Headers
+**Vulnerability:** Missing Content Security Policy (CSP) headers in Next.js static exports (`output: "export"`).
+**Learning:** Next.js static exports do not support `headers()` configuration in `next.config.ts`. As a result, standard HTTP security headers (like CSP) are often omitted during build time. Also, a strict CSP will block standard Next.js dev server websockets and external resources like Google Fonts.
+**Prevention:** Implement security headers using `<meta http-equiv="Content-Security-Policy" content="...">` within `src/app/layout.tsx`. Ensure `unsafe-eval` and `ws:` are conditionally enabled for development environments (`process.env.NODE_ENV === "development"`) to prevent breaking Next.js HMR while securing production. Be sure to audit third-party resources like `fonts.googleapis.com` and `fonts.gstatic.com` and include them in `style-src` and `font-src`.
