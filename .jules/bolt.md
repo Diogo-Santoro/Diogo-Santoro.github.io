@@ -1,0 +1,3 @@
+## 2024-05-19 - Use next/font/google instead of CSS @import
+**Learning:** Next.js heavily relies on next/font for font optimization. In Next.js, `next/font/google` should be used for font loading in `layout.tsx` instead of `@import` in CSS to eliminate render-blocking. Hardcoded fallback fonts for the mapped CSS variables must be removed from global CSS to avoid overriding Next.js's automatic fallback chain.
+**Action:** Always check globals.css for @import url statements and hardcoded font-family root variables when optimizing Next.js projects. Move them to next/font configuration in layout.tsx.
