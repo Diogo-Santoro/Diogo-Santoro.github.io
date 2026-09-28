@@ -42,8 +42,28 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
+  const csp = `
+    default-src 'self';
+    script-src 'self' 'unsafe-inline' ${
+      process.env.NODE_ENV === "development" ? "'unsafe-eval'" : ""
+    };
+    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+    img-src 'self' blob: data:;
+    font-src 'self' https://fonts.gstatic.com;
+    connect-src 'self' ${process.env.NODE_ENV === "development" ? "ws:" : ""};
+    object-src 'none';
+    base-uri 'self';
+    form-action 'self';
+    upgrade-insecure-requests;
+  `
+    .replace(/\s{2,}/g, " ")
+    .trim();
+
   return (
     <html lang="en">
+      <head>
+        <meta httpEquiv="Content-Security-Policy" content={csp} />
+      </head>
       <body>
         <Header />
         <main>{children}</main>
