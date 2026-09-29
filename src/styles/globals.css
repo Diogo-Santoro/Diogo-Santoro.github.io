@@ -122,6 +122,11 @@ button {
   color: inherit;
 }
 
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 ul,
 ol {
   list-style: none;
@@ -698,7 +703,8 @@ h4 {
   transition: color var(--duration-fast) var(--ease-out);
 }
 
-.header__mobile-link:hover {
+.header__mobile-link:hover,
+.header__mobile-link--active {
   color: var(--accent);
 }
 

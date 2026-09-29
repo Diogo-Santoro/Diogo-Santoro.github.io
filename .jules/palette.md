@@ -1,0 +1,3 @@
+## 2024-05-24 - [Global Focus Indicator & Active Link State]
+**Learning:** [The custom CSS approach meant interactive elements like buttons and links lacked clear `:focus-visible` indicators for keyboard accessibility. Moreover, the mobile menu links lacked both an active visual state and the `aria-current` attribute for screen reader context.]
+**Action:** [I applied a global `*:focus-visible` outline in `globals.css` (omitting border-radius to prevent visual artifacts on rounded elements) and added `aria-current="page"` along with active visual classes to both desktop and mobile navigation links.]
