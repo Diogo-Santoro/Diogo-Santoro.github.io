@@ -50,15 +50,19 @@ export default function Header() {
         </Link>
 
         <nav className="header__nav" aria-label="Main navigation">
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={`header__link ${isActive(link.href) ? "header__link--active" : ""}`}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {NAV_LINKS.map((link) => {
+            const active = isActive(link.href);
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`header__link ${active ? "header__link--active" : ""}`}
+                aria-current={active ? "page" : undefined}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
         </nav>
 
         <button
@@ -77,16 +81,20 @@ export default function Header() {
           className={`header__mobile-nav ${mobileOpen ? "header__mobile-nav--open" : ""}`}
           aria-label="Mobile navigation"
         >
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="header__mobile-link"
-              onClick={() => setMobileOpen(false)}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {NAV_LINKS.map((link) => {
+            const active = isActive(link.href);
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`header__mobile-link ${active ? "header__mobile-link--active" : ""}`}
+                onClick={() => setMobileOpen(false)}
+                aria-current={active ? "page" : undefined}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
         </nav>
       </div>
     </header>
