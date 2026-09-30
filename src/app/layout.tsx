@@ -44,6 +44,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en">
+      <head>
+        <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests; base-uri 'self'; object-src 'none';" />
+      </head>
       <body>
         <Header />
         <main>{children}</main>
