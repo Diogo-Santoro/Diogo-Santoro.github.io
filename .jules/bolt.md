@@ -1,0 +1,3 @@
+## 2024-10-01 - Fix self-referencing CSS Variable Bug
+**Learning:** When using Next.js `next/font/google` with CSS variables in a legacy project moving from `@import` Google fonts, modifying the CSS `:root` variables to self-referencing `var()` expressions (e.g., `--font-serif: var(--font-serif)`) creates a CSS specificity bug that invalidates the font properties because the auto-generated Next.js classes target the `html` element which conflicts with the `:root` variables if they are not entirely removed.
+**Action:** Always delete the old typography variables from the global CSS rather than changing them to be self-referencing when applying Next.js dynamic font variables to the `html` class property.
