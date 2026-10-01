@@ -44,6 +44,20 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en">
+      <head>
+        {process.env.NODE_ENV !== "development" && (
+          <meta
+            httpEquiv="Content-Security-Policy"
+            content="upgrade-insecure-requests; base-uri 'self'; object-src 'none';"
+          />
+        )}
+        {process.env.NODE_ENV === "development" && (
+          <meta
+            httpEquiv="Content-Security-Policy"
+            content="base-uri 'self'; object-src 'none';"
+          />
+        )}
+      </head>
       <body>
         <Header />
         <main>{children}</main>

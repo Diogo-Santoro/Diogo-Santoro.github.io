@@ -1,0 +1,4 @@
+## 2024-05-24 - [CSP implementation Next.js static exports]
+**Vulnerability:** Missing base CSP defenses (base-uri, object-src, upgrade-insecure-requests)
+**Learning:** Next.js static exports (`output: 'export'`) do not support configuring CSP through headers in `next.config.js`. Therefore, `<meta>` tags in `layout.tsx` must be used for defensive CSP configurations. Also, `upgrade-insecure-requests` can sometimes break local network development (though `http://localhost` is usually exempt).
+**Prevention:** Next time when implementing CSP via `<meta>` tags for static exports, apply targeted, low-risk directives (`base-uri 'self'`, `object-src 'none'`) unconditionally, but consider omitting or making `upgrade-insecure-requests` conditional based on environment to avoid breaking local network testing.
