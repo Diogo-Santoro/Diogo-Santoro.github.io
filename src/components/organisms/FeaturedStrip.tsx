@@ -13,9 +13,19 @@ export default function FeaturedStrip({ projects }: FeaturedStripProps) {
       <div className="container">
         <ScrollReveal>
           <div className="featured-strip__header">
-            <h2 className="heading-section">Featured Work</h2>
-            <Link href="/projects" className="link text-label">
-              All Projects →
+            <div>
+              <span className="text-label">
+                <span className="material-symbols-outlined" style={{ fontSize: "0.875rem" }}>
+                  terminal
+                </span>
+                FEATURED WORK
+              </span>
+              <h2 className="heading-section" style={{ marginTop: "var(--space-xs)" }}>
+                Projects in Spotlight
+              </h2>
+            </div>
+            <Link href="/projects" className="link">
+              View all projects →
             </Link>
           </div>
         </ScrollReveal>

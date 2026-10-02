@@ -1,27 +1,29 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from "@playwright/test";
 
-test.describe('Home Page', () => {
-  test('should render hero section, featured projects, and CTA', async ({ page }) => {
-    await page.goto('/');
+test.describe("Home Page", () => {
+  test("should render hero section, featured projects, and CTA", async ({ page }) => {
+    await page.goto("/");
 
     await expect(page).toHaveTitle(/Diogo Santoro/);
 
-    const heroHeading = page.locator('h1').first();
+    const heroHeading = page.locator("h1").first();
     await expect(heroHeading).toBeVisible();
-    await expect(heroHeading).toContainText(/Diogo/i);
+    await expect(heroHeading).toContainText(/Software Engineer/i);
 
-    const featuredSection = page.locator('section').filter({ hasText: 'Featured Work' });
+    const featuredSection = page.locator("section").filter({ hasText: "Featured Work" });
     await expect(featuredSection).toBeVisible();
 
-    const projectLinks = featuredSection.locator('a');
+    const projectLinks = featuredSection.locator("a");
     expect(await projectLinks.count()).toBeGreaterThan(0);
-    const ctaSection = page.locator('section').filter({ hasText: /Want to see everything/i });
+    const ctaSection = page
+      .locator("section")
+      .filter({ hasText: /Have a challenging engineering problem/i });
     await expect(ctaSection).toBeVisible();
-    
-    const ctaLink = ctaSection.locator('a', { hasText: /View All Projects/i });
+
+    const ctaLink = ctaSection.locator("a", { hasText: /Schedule a Chat/i });
     if (await ctaLink.isVisible()) {
-        await ctaLink.click();
-        await expect(page).toHaveURL(/.*\/projects/);
+      await ctaLink.click();
+      await expect(page).toHaveURL(/.*\/contact/);
     }
   });
 });
