@@ -1,9 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import ScrollReveal from "@/components/atoms/ScrollReveal";
 
 export default function HomeCTA() {
+  const [copied, setCopied] = useState(false);
   return (
     <section className="cta-band section" id="home-cta">
       <div className="container" style={{ position: "relative" }}>
@@ -41,7 +43,11 @@ export default function HomeCTA() {
           <ScrollReveal delay={200}>
             <div className="cta-band__actions">
               <Link href="/contact" className="btn btn--primary">
-                <span className="material-symbols-outlined" style={{ fontSize: "1.125rem" }}>
+                <span
+                  className="material-symbols-outlined"
+                  style={{ fontSize: "1.125rem" }}
+                  aria-hidden="true"
+                >
                   calendar_today
                 </span>
                 Schedule a Chat
@@ -49,13 +55,31 @@ export default function HomeCTA() {
               <button
                 className="btn btn--secondary"
                 onClick={() => {
-                  navigator.clipboard.writeText("diogo.santoro05@gmail.com");
+                  if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard
+                      .writeText("diogo.santoro05@gmail.com")
+                      .then(() => {
+                        setCopied(true);
+                        setTimeout(() => setCopied(false), 2000);
+                      })
+                      .catch(() =>
+                        alert("Failed to copy. Please copy manually: diogo.santoro05@gmail.com")
+                      );
+                  } else {
+                    alert(
+                      "Clipboard API not available. Please copy manually: diogo.santoro05@gmail.com"
+                    );
+                  }
                 }}
               >
-                <span className="material-symbols-outlined" style={{ fontSize: "1.125rem" }}>
-                  content_copy
+                <span
+                  className="material-symbols-outlined"
+                  style={{ fontSize: "1.125rem" }}
+                  aria-hidden="true"
+                >
+                  {copied ? "check" : "content_copy"}
                 </span>
-                diogo.santoro05@gmail.com
+                {copied ? "Copied!" : "diogo.santoro05@gmail.com"}
               </button>
             </div>
           </ScrollReveal>
@@ -66,6 +90,7 @@ export default function HomeCTA() {
                 <span
                   className="material-symbols-outlined"
                   style={{ fontSize: "0.875rem", color: "var(--tertiary)" }}
+                  aria-hidden="true"
                 >
                   schedule
                 </span>

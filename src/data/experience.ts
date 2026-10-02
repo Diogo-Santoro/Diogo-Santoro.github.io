@@ -5,6 +5,7 @@ export interface Experience {
   location: string;
   mode: string;
   achievements: string[];
+  current?: boolean;
 }
 
 export interface Education {
@@ -18,6 +19,7 @@ export interface Education {
 export const experiences: Experience[] = [
   {
     role: "Software Development Intern",
+    current: true,
     company: "John Deere",
     period: "Feb 2025 — Jul 2026",
     location: "Brazil",

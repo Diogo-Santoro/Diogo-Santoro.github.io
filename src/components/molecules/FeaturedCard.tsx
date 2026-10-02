@@ -27,7 +27,7 @@ export default function FeaturedCard({ project, index }: FeaturedCardProps) {
               letterSpacing: "0.04em",
             }}
           >
-            v{index + 1}.0 • Open Source
+            Open Source
           </span>
         </div>
 

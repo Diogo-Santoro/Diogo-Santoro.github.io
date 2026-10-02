@@ -1,12 +1,32 @@
 import ScrollReveal from "@/components/atoms/ScrollReveal";
 import { skills } from "@/data/skills";
 
-const ICON_MAP: Record<string, { icon: string; colorClass: string }> = {
-  "Languages & Frameworks": { icon: "dns", colorClass: "tech-card__icon--primary" },
-  "Infrastructure & DevOps": { icon: "monitoring", colorClass: "tech-card__icon--tertiary" },
-  Databases: { icon: "database", colorClass: "tech-card__icon--secondary" },
-  "Testing & Quality": { icon: "verified", colorClass: "tech-card__icon--tertiary" },
-  "Tools & Practices": { icon: "devices", colorClass: "tech-card__icon--primary" },
+const ICON_MAP: Record<string, { icon: string; colorClass: string; desc: string }> = {
+  "Languages & Frameworks": {
+    icon: "dns",
+    colorClass: "tech-card__icon--primary",
+    desc: "High-throughput microservices, decoupled orchestration, and mission-critical relational databases.",
+  },
+  "Infrastructure & DevOps": {
+    icon: "monitoring",
+    colorClass: "tech-card__icon--tertiary",
+    desc: "Infrastructure as code, continuous delivery pipelines with zero downtime, and deep telemetry.",
+  },
+  Databases: {
+    icon: "database",
+    colorClass: "tech-card__icon--secondary",
+    desc: "Reliable data persistence with PostgreSQL, MySQL, SQL Server, and in-memory caching with Redis.",
+  },
+  "Testing & Quality": {
+    icon: "verified",
+    colorClass: "tech-card__icon--tertiary",
+    desc: "Comprehensive testing methodologies and static analysis.",
+  },
+  "Tools & Practices": {
+    icon: "devices",
+    colorClass: "tech-card__icon--primary",
+    desc: "Modern tooling and agile engineering practices.",
+  },
 };
 
 export default function TechStackSection() {
@@ -40,6 +60,7 @@ export default function TechStackSection() {
             const mapping = ICON_MAP[group.category] || {
               icon: "code",
               colorClass: "tech-card__icon--primary",
+              desc: "Various tools and frameworks.",
             };
             return (
               <ScrollReveal key={group.category} delay={i * 100}>
@@ -49,13 +70,7 @@ export default function TechStackSection() {
                       <span className="material-symbols-outlined">{mapping.icon}</span>
                     </div>
                     <h3 className="tech-card__title">{group.category}</h3>
-                    <p className="tech-card__desc">
-                      {group.category === "Languages & Frameworks"
-                        ? "High-throughput microservices, decoupled orchestration, and mission-critical relational databases."
-                        : group.category === "Infrastructure & DevOps"
-                          ? "Infrastructure as code, continuous delivery pipelines with zero downtime, and deep telemetry."
-                          : "Reliable data persistence with PostgreSQL, MySQL, SQL Server, and in-memory caching with Redis."}
-                    </p>
+                    <p className="tech-card__desc">{mapping.desc}</p>
                   </div>
                   <div className="pills">
                     {group.items.map((item) => (

@@ -6,14 +6,14 @@ export default function ExperienceTimeline() {
     <div className="timeline">
       {experiences.map((exp, i) => (
         <ScrollReveal key={exp.company} delay={i * 100}>
-          <div className={`timeline__item ${i === 0 ? "timeline__item--current" : ""}`}>
+          <div className={`timeline__item ${exp.current ? "timeline__item--current" : ""}`}>
             <div className="timeline__header">
               <span
-                className={`timeline__period ${i === 0 ? "timeline__period--current" : "timeline__period--past"}`}
+                className={`timeline__period ${exp.current ? "timeline__period--current" : "timeline__period--past"}`}
               >
                 {exp.period}
               </span>
-              {i === 0 && <span className="timeline__current-badge">CURRENT</span>}
+              {exp.current && <span className="timeline__current-badge">CURRENT</span>}
             </div>
 
             <h3 className="timeline__role">{exp.role}</h3>

@@ -40,19 +40,31 @@ export default function HomeHero() {
         <ScrollReveal delay={300}>
           <div className="hero__ctas">
             <Link href="/projects" className="btn btn--primary">
-              <span className="material-symbols-outlined" style={{ fontSize: "1.125rem" }}>
+              <span
+                className="material-symbols-outlined"
+                style={{ fontSize: "1.125rem" }}
+                aria-hidden="true"
+              >
                 deployed_code
               </span>
               View Projects
             </Link>
             <Link href="/contact" className="btn btn--secondary">
-              <span className="material-symbols-outlined" style={{ fontSize: "1.125rem" }}>
+              <span
+                className="material-symbols-outlined"
+                style={{ fontSize: "1.125rem" }}
+                aria-hidden="true"
+              >
                 terminal
               </span>
               Get in Touch
             </Link>
             <Link href="/about" className="btn btn--ghost">
-              <span className="material-symbols-outlined" style={{ fontSize: "1.125rem" }}>
+              <span
+                className="material-symbols-outlined"
+                style={{ fontSize: "1.125rem" }}
+                aria-hidden="true"
+              >
                 person
               </span>
               About Me
@@ -78,7 +90,10 @@ export default function HomeHero() {
           <div className="hero__stat">
             <div className="hero__stat-header">
               <span className="hero__stat-label">CAREER</span>
-              <span className="material-symbols-outlined hero__stat-icon hero__stat-icon--primary">
+              <span
+                className="material-symbols-outlined hero__stat-icon hero__stat-icon--primary"
+                aria-hidden="true"
+              >
                 history_edu
               </span>
             </div>
@@ -89,7 +104,10 @@ export default function HomeHero() {
           <div className="hero__stat">
             <div className="hero__stat-header">
               <span className="hero__stat-label">COMPANIES</span>
-              <span className="material-symbols-outlined hero__stat-icon hero__stat-icon--tertiary">
+              <span
+                className="material-symbols-outlined hero__stat-icon hero__stat-icon--tertiary"
+                aria-hidden="true"
+              >
                 check_circle
               </span>
             </div>
@@ -100,7 +118,10 @@ export default function HomeHero() {
           <div className="hero__stat">
             <div className="hero__stat-header">
               <span className="hero__stat-label">PROJECTS</span>
-              <span className="material-symbols-outlined hero__stat-icon hero__stat-icon--primary">
+              <span
+                className="material-symbols-outlined hero__stat-icon hero__stat-icon--primary"
+                aria-hidden="true"
+              >
                 speed
               </span>
             </div>
@@ -111,7 +132,10 @@ export default function HomeHero() {
           <div className="hero__stat">
             <div className="hero__stat-header">
               <span className="hero__stat-label">OPEN SOURCE</span>
-              <span className="material-symbols-outlined hero__stat-icon hero__stat-icon--secondary">
+              <span
+                className="material-symbols-outlined hero__stat-icon hero__stat-icon--secondary"
+                aria-hidden="true"
+              >
                 terminal
               </span>
             </div>

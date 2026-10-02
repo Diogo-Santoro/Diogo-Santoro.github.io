@@ -29,7 +29,11 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="footer__link"
             >
-              <span className="material-symbols-outlined" style={{ fontSize: "1rem" }}>
+              <span
+                className="material-symbols-outlined"
+                style={{ fontSize: "1rem" }}
+                aria-hidden="true"
+              >
                 code
               </span>
               GitHub
@@ -40,13 +44,21 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="footer__link"
             >
-              <span className="material-symbols-outlined" style={{ fontSize: "1rem" }}>
+              <span
+                className="material-symbols-outlined"
+                style={{ fontSize: "1rem" }}
+                aria-hidden="true"
+              >
                 hub
               </span>
               LinkedIn
             </a>
             <Link href="/contact" className="footer__link footer__link--primary">
-              <span className="material-symbols-outlined" style={{ fontSize: "1rem" }}>
+              <span
+                className="material-symbols-outlined"
+                style={{ fontSize: "1rem" }}
+                aria-hidden="true"
+              >
                 description
               </span>
               Contact
