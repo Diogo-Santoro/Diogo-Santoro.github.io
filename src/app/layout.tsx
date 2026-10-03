@@ -55,10 +55,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="en"
-      className={`${plusJakartaSans.variable} ${jetbrainsMono.variable}`}
-    >
+    <html lang="en" className={`${plusJakartaSans.variable} ${jetbrainsMono.variable}`}>
       <head>
         {process.env.NODE_ENV !== "development" && (
           <meta
@@ -66,9 +63,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             content="upgrade-insecure-requests; base-uri 'self'; object-src 'none';"
           />
         )}
+        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap"
         />
       </head>
       <body>
