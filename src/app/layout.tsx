@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "@/styles/globals.css";
 import Header from "@/components/organisms/Header";
 import Footer from "@/components/organisms/Footer";
@@ -13,6 +14,14 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
+});
+
+const materialSymbols = localFont({
+  src: "../fonts/material-symbols-outlined.woff2",
+  variable: "--font-material-symbols",
+  weight: "400",
+  style: "normal",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -55,7 +64,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${plusJakartaSans.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en" className={`${plusJakartaSans.variable} ${jetbrainsMono.variable} ${materialSymbols.variable}`}>
       <head>
         {process.env.NODE_ENV !== "development" && (
           <meta
@@ -63,11 +72,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             content="upgrade-insecure-requests; base-uri 'self'; object-src 'none';"
           />
         )}
-        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap"
-        />
       </head>
       <body>
         <Header />
