@@ -45,6 +45,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en">
       <head>
+        {process.env.NODE_ENV !== "development" && (
+          <meta
+            httpEquiv="Content-Security-Policy"
+            content="upgrade-insecure-requests; base-uri 'self'; object-src 'none';"
+          />
+        )}
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
