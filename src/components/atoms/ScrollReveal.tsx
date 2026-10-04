@@ -10,6 +10,28 @@ interface ScrollRevealProps {
   threshold?: number;
 }
 
+// Optimization: Shared IntersectionObserver map and callbacks WeakMap to avoid O(n) instances
+const observerMap = new Map<number, IntersectionObserver>();
+const callbacksMap = new WeakMap<Element, (entry: IntersectionObserverEntry) => void>();
+
+function getObserver(threshold: number): IntersectionObserver {
+  if (!observerMap.has(threshold)) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const callback = callbacksMap.get(entry.target);
+          if (callback) {
+            callback(entry);
+          }
+        });
+      },
+      { threshold, rootMargin: "0px 0px -40px 0px" }
+    );
+    observerMap.set(threshold, observer);
+  }
+  return observerMap.get(threshold)!;
+}
+
 export default function ScrollReveal({
   children,
   className = "",
@@ -23,19 +45,24 @@ export default function ScrollReveal({
     const el = ref.current;
     if (!el) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          el.classList.add("visible");
-          observer.unobserve(el);
-        }
-      },
-      { threshold, rootMargin: "0px 0px -40px 0px" }
-    );
+    // Use shared observer instance for this threshold
+    const observer = getObserver(threshold);
+
+    // Register the callback for this element
+    callbacksMap.set(el, (entry) => {
+      if (entry.isIntersecting) {
+        el.classList.add("visible");
+        observer.unobserve(el);
+        callbacksMap.delete(el);
+      }
+    });
 
     observer.observe(el);
 
-    return () => observer.disconnect();
+    return () => {
+      observer.unobserve(el);
+      callbacksMap.delete(el);
+    };
   }, [threshold]);
 
   const directionClass =
