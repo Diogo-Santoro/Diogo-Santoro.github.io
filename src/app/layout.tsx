@@ -31,6 +31,7 @@ export const metadata: Metadata = {
   },
   description:
     "Portfolio of Diogo Santoro — Software Developer specializing in Java, TypeScript, React, and DevOps. Based in Vigo, Spain.",
+  referrer: "strict-origin-when-cross-origin",
   keywords: [
     "Diogo Santoro",
     "Software Developer",
@@ -69,7 +70,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {process.env.NODE_ENV !== "development" && (
           <meta
             httpEquiv="Content-Security-Policy"
-            content="upgrade-insecure-requests; base-uri 'self'; object-src 'none';"
+            content="upgrade-insecure-requests; base-uri 'self'; object-src 'none'; form-action 'none';"
           />
         )}
       </head>

@@ -6,3 +6,7 @@
 **Vulnerability:** Remote Code Execution in next/og ImageResponse (CVE-2024-46982)
 **Learning:** The project relies on Next.js, and outdated versions (16.2.0 - 16.3.5) suffer from a critical RCE. Updating dependencies is crucial to protect the application.
 **Prevention:** Regularly audit and update dependencies (using `npm audit`) and enforce strict version constraints or automated dependency updates.
+## 2026-10-04 - Enhancing Next.js Static Export Security Headers
+**Vulnerability:** Missing strict referrer policy and unrestricted form action in CSP.
+**Learning:** In Next.js static exports (`output: 'export'`), traditional HTTP headers (e.g. from `next.config.ts`) cannot be used. However, the `metadata` API in `layout.tsx` natively supports setting the `referrer` policy. Additionally, appending `form-action 'none'` to the CSP `<meta>` tag is a highly effective, safe enhancement for sites without forms.
+**Prevention:** Leverage Next.js `metadata` for supported security options like `referrer`, and harden `<meta>` CSP directives where applicable.
