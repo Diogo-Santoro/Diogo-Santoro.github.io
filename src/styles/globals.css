@@ -160,7 +160,7 @@ ol {
 
 /* Material Symbols config */
 .material-symbols-outlined {
-  font-family: "Material Symbols Outlined";
+  font-family: var(--font-material-symbols), "Material Symbols Outlined";
   font-weight: normal;
   font-style: normal;
   display: inline-block;
@@ -175,6 +175,8 @@ ol {
     "wght" 400,
     "GRAD" 0,
     "opsz" 24;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
 }
 
 /* ============================================================
