@@ -4,3 +4,6 @@
 ## 2026-10-03 - Next.js Icon Fonts Optimization
 **Learning:** `next/font/google` doesn't export "Material Symbols Outlined" and external Google Font links create render-blocking resources + unnecessary preconnects. Using local TTF files for icons is too large (~1MB).
 **Action:** Always use `.woff2` files (much smaller, ~300KB) and load them via `next/font/local` when dealing with icon fonts in Next.js to eliminate render-blocking CSS while keeping bundle sizes reasonable. Ensure necessary CSS properties (`-webkit-font-feature-settings: 'liga'`, etc.) are manually added to the global CSS when removing the remote stylesheet.
+## 2024-05-19 - IntersectionObserver Overhead
+**Learning:** Instantiating a new `IntersectionObserver` for every heavily reused component (like generic scroll reveal wrappers) creates O(n) memory overhead and excessive main thread CPU usage, which can cause scroll jank.
+**Action:** When implementing `IntersectionObserver` across multiple components, prefer using a shared module-level observer instance (caching by threshold) along with a `WeakMap` to map elements to their respective callbacks.
