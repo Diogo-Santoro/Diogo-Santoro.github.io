@@ -10,6 +10,34 @@ interface ScrollRevealProps {
   threshold?: number;
 }
 
+// ⚡ Bolt Performance Optimization:
+// We use a shared IntersectionObserver instance per threshold/rootMargin combination
+// to avoid creating hundreds of observer instances (O(n) overhead) when there are
+// many Reveal elements on the page. We map DOM elements to their respective callbacks
+// using a WeakMap, which also prevents memory leaks.
+// Expected Impact: Reduces memory footprint and main thread CPU usage during scroll.
+const observerMap = new Map<string, IntersectionObserver>();
+const callbackMap = new WeakMap<Element, (entry: IntersectionObserverEntry) => void>();
+
+function getObserver(threshold: number, rootMargin: string) {
+  const key = `${threshold}-${rootMargin}`;
+  if (!observerMap.has(key)) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const callback = callbackMap.get(entry.target);
+          if (callback) {
+            callback(entry);
+          }
+        });
+      },
+      { threshold, rootMargin }
+    );
+    observerMap.set(key, observer);
+  }
+  return observerMap.get(key)!;
+}
+
 export default function ScrollReveal({
   children,
   className = "",
@@ -23,19 +51,23 @@ export default function ScrollReveal({
     const el = ref.current;
     if (!el) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          el.classList.add("visible");
-          observer.unobserve(el);
-        }
-      },
-      { threshold, rootMargin: "0px 0px -40px 0px" }
-    );
+    const rootMargin = "0px 0px -40px 0px";
+    const observer = getObserver(threshold, rootMargin);
+
+    callbackMap.set(el, (entry) => {
+      if (entry.isIntersecting) {
+        el.classList.add("visible");
+        observer.unobserve(el);
+        callbackMap.delete(el);
+      }
+    });
 
     observer.observe(el);
 
-    return () => observer.disconnect();
+    return () => {
+      observer.unobserve(el);
+      callbackMap.delete(el);
+    };
   }, [threshold]);
 
   const directionClass =
