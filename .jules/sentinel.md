@@ -15,3 +15,7 @@
 **Vulnerability:** Missing strict referrer policy and unrestricted form action in CSP.
 **Learning:** In Next.js static exports (`output: 'export'`), traditional HTTP headers (e.g. from `next.config.ts`) cannot be used. However, the `metadata` API in `layout.tsx` natively supports setting the `referrer` policy. Additionally, appending `form-action 'none'` to the CSP `<meta>` tag is a highly effective, safe enhancement for sites without forms.
 **Prevention:** Leverage Next.js `metadata` for supported security options like `referrer`, and harden `<meta>` CSP directives where applicable.
+## 2026-10-06 - Strict Referrer Policy via Metadata
+**Vulnerability:** Weak or sub-optimal referrer policy (origin-when-cross-origin).
+**Learning:** In Next.js static exports, setting the referrer policy to 'strict-origin-when-cross-origin' via the metadata object in layout.tsx is a simple but effective security enhancement to prevent referrer leakage over unencrypted connections.
+**Prevention:** Default to 'strict-origin-when-cross-origin' for the referrer policy in the Next.js metadata configuration.
