@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   },
   description:
     "Portfolio of Diogo Santoro — Software Developer specializing in Java, TypeScript, React, and DevOps. Based in Vigo, Spain.",
-  referrer: "strict-origin-when-cross-origin",
+  referrer: "origin-when-cross-origin",
   keywords: [
     "Diogo Santoro",
     "Software Developer",
@@ -61,12 +61,14 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-  referrer: "strict-origin-when-cross-origin",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${plusJakartaSans.variable} ${jetbrainsMono.variable} ${materialSymbols.variable}`}>
+    <html
+      lang="en"
+      className={`${plusJakartaSans.variable} ${jetbrainsMono.variable} ${materialSymbols.variable}`}
+    >
       <head>
         {process.env.NODE_ENV !== "development" && (
           <meta
