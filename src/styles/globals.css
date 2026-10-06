@@ -1956,3 +1956,42 @@ h4 {
     animation: none;
   }
 }
+
+/* ============================================================
+   26. UTILITIES
+   ============================================================ */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.focus\:not-sr-only:focus,
+.focus\:not-sr-only:focus-visible {
+  position: absolute;
+  width: auto;
+  height: auto;
+  padding: 8px;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+  top: 0;
+  left: 0;
+  background: var(--primary);
+  color: var(--on-primary);
+  z-index: 50;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+#main-content {
+  outline: none;
+}

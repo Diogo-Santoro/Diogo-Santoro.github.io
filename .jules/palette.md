@@ -5,3 +5,7 @@
 ## 2024-10-04 - Global Keyboard Focus Styles and Border Radius
 **Learning:** Overriding `border-radius` in global `*:focus-visible` styles can cause visual regressions on elements that already have specific shapes (like circular avatars or pill buttons). It's best to rely on `outline` and `outline-offset` without modifying the `border-radius`.
 **Action:** When adding focus styles globally using `*:focus-visible`, always use `outline` and `outline-offset`, and explicitly avoid setting `border-radius`.
+
+## 2024-10-04 - Skip to Content Links
+**Learning:** For screen reader and keyboard-only users, traversing through global navigation links on every page load is extremely tedious and detrimental to UX.
+**Action:** Always include a visually-hidden, focusable "Skip to content" link at the very top of the document body that anchors to the `<main>` element, to allow these users to bypass navigation quickly.
