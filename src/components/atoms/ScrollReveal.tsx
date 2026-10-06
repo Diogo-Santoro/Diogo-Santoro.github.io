@@ -10,6 +10,34 @@ interface ScrollRevealProps {
   threshold?: number;
 }
 
+type ObserverCallback = (entry: IntersectionObserverEntry) => void;
+
+// ⚡ Bolt: Cache IntersectionObserver instances by threshold and use a WeakMap
+// for callbacks to avoid O(n) memory overhead and excessive observer instantiation.
+const observers = new Map<number, IntersectionObserver>();
+const callbacks = new WeakMap<Element, ObserverCallback>();
+
+function getObserver(threshold: number): IntersectionObserver {
+  if (observers.has(threshold)) {
+    return observers.get(threshold)!;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const callback = callbacks.get(entry.target);
+        if (callback) {
+          callback(entry);
+        }
+      });
+    },
+    { threshold, rootMargin: "0px 0px -40px 0px" }
+  );
+
+  observers.set(threshold, observer);
+  return observer;
+}
+
 export default function ScrollReveal({
   children,
   className = "",
@@ -23,19 +51,24 @@ export default function ScrollReveal({
     const el = ref.current;
     if (!el) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          el.classList.add("visible");
-          observer.unobserve(el);
-        }
-      },
-      { threshold, rootMargin: "0px 0px -40px 0px" }
-    );
+    // ⚡ Bolt: Store the callback in the module-level WeakMap
+    callbacks.set(el, (entry) => {
+      if (entry.isIntersecting) {
+        el.classList.add("visible");
+        const observer = getObserver(threshold);
+        observer.unobserve(el);
+        callbacks.delete(el);
+      }
+    });
 
+    const observer = getObserver(threshold);
     observer.observe(el);
 
-    return () => observer.disconnect();
+    return () => {
+      const currentObserver = getObserver(threshold);
+      currentObserver.unobserve(el);
+      callbacks.delete(el);
+    };
   }, [threshold]);
 
   const directionClass =
