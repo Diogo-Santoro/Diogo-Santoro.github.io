@@ -61,6 +61,7 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  referrer: "strict-origin-when-cross-origin",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
