@@ -10,26 +10,32 @@ interface ScrollRevealProps {
   threshold?: number;
 }
 
-// Optimization: Shared IntersectionObserver map and callbacks WeakMap to avoid O(n) instances
-const observerMap = new Map<number, IntersectionObserver>();
-const callbacksMap = new WeakMap<Element, (entry: IntersectionObserverEntry) => void>();
+// ⚡ Bolt Performance Optimization:
+// We use a shared IntersectionObserver instance per threshold/rootMargin combination
+// to avoid creating hundreds of observer instances (O(n) overhead) when there are
+// many Reveal elements on the page. We map DOM elements to their respective callbacks
+// using a WeakMap, which also prevents memory leaks.
+// Expected Impact: Reduces memory footprint and main thread CPU usage during scroll.
+const observerMap = new Map<string, IntersectionObserver>();
+const callbackMap = new WeakMap<Element, (entry: IntersectionObserverEntry) => void>();
 
-function getObserver(threshold: number): IntersectionObserver {
-  if (!observerMap.has(threshold)) {
+function getObserver(threshold: number, rootMargin: string) {
+  const key = `${threshold}-${rootMargin}`;
+  if (!observerMap.has(key)) {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          const callback = callbacksMap.get(entry.target);
+          const callback = callbackMap.get(entry.target);
           if (callback) {
             callback(entry);
           }
         });
       },
-      { threshold, rootMargin: "0px 0px -40px 0px" }
+      { threshold, rootMargin }
     );
-    observerMap.set(threshold, observer);
+    observerMap.set(key, observer);
   }
-  return observerMap.get(threshold)!;
+  return observerMap.get(key)!;
 }
 
 export default function ScrollReveal({
@@ -45,15 +51,14 @@ export default function ScrollReveal({
     const el = ref.current;
     if (!el) return;
 
-    // Use shared observer instance for this threshold
-    const observer = getObserver(threshold);
+    const rootMargin = "0px 0px -40px 0px";
+    const observer = getObserver(threshold, rootMargin);
 
-    // Register the callback for this element
-    callbacksMap.set(el, (entry) => {
+    callbackMap.set(el, (entry) => {
       if (entry.isIntersecting) {
         el.classList.add("visible");
         observer.unobserve(el);
-        callbacksMap.delete(el);
+        callbackMap.delete(el);
       }
     });
 
@@ -61,7 +66,7 @@ export default function ScrollReveal({
 
     return () => {
       observer.unobserve(el);
-      callbacksMap.delete(el);
+      callbackMap.delete(el);
     };
   }, [threshold]);
 

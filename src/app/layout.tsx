@@ -60,6 +60,7 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  referrer: "strict-origin-when-cross-origin",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -69,7 +70,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {process.env.NODE_ENV !== "development" && (
           <meta
             httpEquiv="Content-Security-Policy"
-            content="upgrade-insecure-requests; base-uri 'self'; object-src 'none';"
+            content="upgrade-insecure-requests; base-uri 'self'; object-src 'none'; form-action 'none';"
           />
         )}
       </head>
