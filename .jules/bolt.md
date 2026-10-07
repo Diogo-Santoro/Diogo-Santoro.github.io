@@ -7,3 +7,6 @@
 ## 2024-05-19 - IntersectionObserver Scaling O(n) Issue
 **Learning:** When creating a separate `IntersectionObserver` per element (e.g., in a ScrollReveal component mapping over an array of items), you incur O(n) memory and instantiation overhead, which can cause jank on long lists.
 **Action:** Share module-level `IntersectionObserver` instances cached by `threshold`, and use a `WeakMap<Element, Callback>` to handle individual element callbacks efficiently.
+## 2024-05-19 - requestAnimationFrame throttling in React
+**Learning:** Using `requestAnimationFrame` for scroll event throttling is a powerful performance optimization, but combining it with synchronous initial state setters inside `useEffect` triggers a `react-hooks/set-state-in-effect` linting error due to cascading renders.
+**Action:** When implementing `requestAnimationFrame` throttling inside a `useEffect`, do not synchronously call the state setter to initialize state. Instead, invoke the throttled event handler function directly.
