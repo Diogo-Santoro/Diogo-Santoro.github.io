@@ -12,14 +12,13 @@ interface FilterBarProps {
 
 export default function FilterBar({ filters, activeFilter, onFilterChange }: FilterBarProps) {
   return (
-    <div className="filter-bar" role="tablist" aria-label="Filter projects by category">
+    <div className="filter-bar" role="group" aria-label="Filter projects by category">
       {filters.map((filter) => (
         <button
           key={filter}
           className={`filter-btn ${activeFilter === filter ? "filter-btn--active" : ""}`}
           onClick={() => onFilterChange(filter)}
-          role="tab"
-          aria-selected={activeFilter === filter}
+          aria-pressed={activeFilter === filter}
           id={`filter-${filter.toLowerCase()}`}
         >
           {filter}

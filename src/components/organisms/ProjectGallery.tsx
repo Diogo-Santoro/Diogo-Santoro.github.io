@@ -41,6 +41,11 @@ export default function ProjectGallery() {
           No projects in this category yet.
         </p>
       )}
+
+      {/* Screen reader announcement for dynamic filtering */}
+      <div aria-live="polite" aria-atomic="true" className="sr-only">
+        Showing {filteredProjects.length} {filteredProjects.length === 1 ? 'project' : 'projects'} in {activeFilter} category.
+      </div>
     </div>
   );
 }
