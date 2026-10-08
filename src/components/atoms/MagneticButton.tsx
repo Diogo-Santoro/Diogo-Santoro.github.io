@@ -45,8 +45,9 @@ export default function MagneticButton({
   };
 
   if (href) {
+    const isExternal = /^(https?:)?\/\//i.test(href);
     return (
-      <a {...props} href={href} target={href.startsWith("http") ? "_blank" : undefined} rel={href.startsWith("http") ? "noopener noreferrer" : undefined}>
+      <a {...props} href={href} target={isExternal ? "_blank" : undefined} rel={isExternal ? "noopener noreferrer" : undefined}>
         <span>{children}</span>
       </a>
     );
