@@ -58,23 +58,26 @@ export default function ContactPage() {
         </ScrollReveal>
 
         <div>
-          {CONTACT_LINKS.map((link, i) => (
-            <ScrollReveal key={link.label} delay={200 + i * 80}>
-              <a
-                href={link.href}
-                target={link.href.startsWith("mailto") ? undefined : "_blank"}
-                rel={link.href.startsWith("mailto") ? undefined : "noopener noreferrer"}
-                className="contact-row"
-                id={`contact-${link.label.toLowerCase()}`}
-              >
-                <div className="contact-row__left">
-                  <span className="contact-row__label">{link.label}</span>
-                  <span className="contact-row__value">{link.value}</span>
-                </div>
-                <span className="contact-row__arrow">→</span>
-              </a>
-            </ScrollReveal>
-          ))}
+          {CONTACT_LINKS.map((link, i) => {
+            const isExternal = /^(https?:)?\/\//i.test(link.href);
+            return (
+              <ScrollReveal key={link.label} delay={200 + i * 80}>
+                <a
+                  href={link.href}
+                  target={isExternal ? "_blank" : undefined}
+                  rel={isExternal ? "noopener noreferrer" : undefined}
+                  className="contact-row"
+                  id={`contact-${link.label.toLowerCase()}`}
+                >
+                  <div className="contact-row__left">
+                    <span className="contact-row__label">{link.label}</span>
+                    <span className="contact-row__value">{link.value}</span>
+                  </div>
+                  <span className="contact-row__arrow">→</span>
+                </a>
+              </ScrollReveal>
+            );
+          })}
         </div>
 
         <ScrollReveal delay={500}>
