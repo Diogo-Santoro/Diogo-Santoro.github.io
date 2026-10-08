@@ -15,7 +15,7 @@ export default function FeaturedStrip({ projects }: FeaturedStripProps) {
           <div className="featured-strip__header">
             <div>
               <span className="text-label">
-                <span className="material-symbols-outlined" style={{ fontSize: "0.875rem" }}>
+                <span className="material-symbols-outlined" style={{ fontSize: "0.875rem" }} aria-hidden="true">
                   terminal
                 </span>
                 FEATURED WORK

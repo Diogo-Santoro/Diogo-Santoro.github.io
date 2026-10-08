@@ -39,7 +39,7 @@ export default function TechStackSection() {
           <div className="tech-section__header">
             <div>
               <span className="text-label">
-                <span className="material-symbols-outlined" style={{ fontSize: "0.875rem" }}>
+                <span className="material-symbols-outlined" style={{ fontSize: "0.875rem" }} aria-hidden="true">
                   memory
                 </span>
                 CORE COMPETENCIES
@@ -67,7 +67,7 @@ export default function TechStackSection() {
                 <div className="tech-card">
                   <div>
                     <div className={`tech-card__icon ${mapping.colorClass}`}>
-                      <span className="material-symbols-outlined">{mapping.icon}</span>
+                      <span className="material-symbols-outlined" aria-hidden="true">{mapping.icon}</span>
                     </div>
                     <h3 className="tech-card__title">{group.category}</h3>
                     <p className="tech-card__desc">{mapping.desc}</p>
