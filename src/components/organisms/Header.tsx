@@ -17,8 +17,17 @@ export default function Header() {
   const pathname = usePathname();
 
   useEffect(() => {
+    // ⚡ Bolt: Use requestAnimationFrame to throttle scroll events
+    // and prevent unnecessary state evaluations, syncing with paint cycles.
+    let ticking = false;
     function onScroll() {
-      setScrolled(window.scrollY > 40);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 40);
+          ticking = false;
+        });
+        ticking = true;
+      }
     }
 
     window.addEventListener("scroll", onScroll, { passive: true });
