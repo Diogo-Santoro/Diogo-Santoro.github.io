@@ -41,40 +41,41 @@ export default function ContactPage() {
               marginBottom: "var(--space-lg)",
             }}
           >
-            Let&apos;s build<br />
-            <span className="text-accent text-italic">something</span><span className="text-accent">.</span>
+            Let&apos;s build
+            <br />
+            <span className="text-accent text-italic">something</span>
+            <span className="text-accent">.</span>
           </h1>
         </ScrollReveal>
 
         <ScrollReveal delay={150}>
-          <p
-            className="text-body"
-            style={{ marginBottom: "var(--space-3xl)", maxWidth: "520px" }}
-          >
-            I&apos;m currently based in Vigo, Spain with an active work permit — 
-            open to full-time roles, freelance projects, or just a good conversation 
-            about technology.
+          <p className="text-body" style={{ marginBottom: "var(--space-3xl)", maxWidth: "520px" }}>
+            I&apos;m currently based in Vigo, Spain with an active work permit — open to full-time
+            roles, freelance projects, or just a good conversation about technology.
           </p>
         </ScrollReveal>
 
         <div>
-          {CONTACT_LINKS.map((link, i) => (
-            <ScrollReveal key={link.label} delay={200 + i * 80}>
-              <a
-                href={link.href}
-                target={link.href.startsWith("mailto") ? undefined : "_blank"}
-                rel={link.href.startsWith("mailto") ? undefined : "noopener noreferrer"}
-                className="contact-row"
-                id={`contact-${link.label.toLowerCase()}`}
-              >
-                <div className="contact-row__left">
-                  <span className="contact-row__label">{link.label}</span>
-                  <span className="contact-row__value">{link.value}</span>
-                </div>
-                <span className="contact-row__arrow">→</span>
-              </a>
-            </ScrollReveal>
-          ))}
+          {CONTACT_LINKS.map((link, i) => {
+            const isExternal = /^(https?:)?\/\//i.test(link.href);
+            return (
+              <ScrollReveal key={link.label} delay={200 + i * 80}>
+                <a
+                  href={link.href}
+                  target={isExternal ? "_blank" : undefined}
+                  rel={isExternal ? "noopener noreferrer" : undefined}
+                  className="contact-row"
+                  id={`contact-${link.label.toLowerCase()}`}
+                >
+                  <div className="contact-row__left">
+                    <span className="contact-row__label">{link.label}</span>
+                    <span className="contact-row__value">{link.value}</span>
+                  </div>
+                  <span className="contact-row__arrow">→</span>
+                </a>
+              </ScrollReveal>
+            );
+          })}
         </div>
 
         <ScrollReveal delay={500}>
@@ -83,8 +84,11 @@ export default function ContactPage() {
               Location
             </p>
             <p className="text-body">
-              Vigo, Galicia, Spain<br />
-              <span className="text-small">Legal Status: EU Citizen (DNI) / Active Work Permit</span>
+              Vigo, Galicia, Spain
+              <br />
+              <span className="text-small">
+                Legal Status: EU Citizen (DNI) / Active Work Permit
+              </span>
             </p>
           </div>
         </ScrollReveal>
