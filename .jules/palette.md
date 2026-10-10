@@ -13,3 +13,6 @@
 ## 2026-10-06 - Dynamic Filtering Accessibility
 **Learning:** Using `role="tablist"` for simple filter buttons without implementing full tab key navigation (arrow keys, etc.) causes accessibility violations. Additionally, dynamically changing content below the filters is not automatically announced to screen readers.
 **Action:** Use `role="group"` and `aria-pressed` for toggle-like filter buttons, and always pair dynamic content changes with a visually hidden `aria-live="polite"` region to announce the new state to screen readers.
+## 2026-10-10 - Prevent screen readers from reading decorative icons
+**Learning:** Material Symbols (Google Fonts icons) use text ligatures (e.g., 'code', 'arrow_right') that are literally read aloud by screen readers if they lack `aria-hidden="true"`, which degrades the experience for visually impaired users.
+**Action:** When using ligature-based icon fonts, always ensure `aria-hidden="true"` is applied if the icon is purely decorative and accompanied by descriptive text.
