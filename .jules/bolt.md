@@ -10,3 +10,6 @@
 ## 2024-05-19 - requestAnimationFrame throttling in React
 **Learning:** Using `requestAnimationFrame` for scroll event throttling is a powerful performance optimization, but combining it with synchronous initial state setters inside `useEffect` triggers a `react-hooks/set-state-in-effect` linting error due to cascading renders.
 **Action:** When implementing `requestAnimationFrame` throttling inside a `useEffect`, do not synchronously call the state setter to initialize state. Instead, invoke the throttled event handler function directly.
+## 2024-10-11 - Layout Thrashing in Mouse Events
+**Learning:** High-frequency events like `mousemove` coupled with synchronous layout calculations (`getBoundingClientRect()`) and DOM writes (`transform`) cause significant layout thrashing and jank.
+**Action:** Always cache bounding box coordinates on lower-frequency events (like `mouseenter`) or use IntersectionObserver when dealing with continuous layout properties (like magnetic buttons or custom cursors).
