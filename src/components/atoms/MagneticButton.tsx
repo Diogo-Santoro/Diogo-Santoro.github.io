@@ -19,13 +19,27 @@ export default function MagneticButton({
 }: MagneticButtonProps) {
   const ref = useRef<HTMLAnchorElement & HTMLButtonElement>(null);
 
+  // ⚡ Bolt: Cache bounds on enter to prevent layout thrashing (synchronous reflows) during high-frequency mousemove events
+  const bounds = useRef({ left: 0, top: 0, width: 0, height: 0 });
+
+  function handleMouseEnter() {
+    const el = ref.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    bounds.current = {
+      left: rect.left + window.scrollX,
+      top: rect.top + window.scrollY,
+      width: rect.width,
+      height: rect.height,
+    };
+  }
+
   function handleMouseMove(e: MouseEvent) {
     const el = ref.current;
     if (!el) return;
 
-    const rect = el.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
+    const x = e.pageX - bounds.current.left - bounds.current.width / 2;
+    const y = e.pageY - bounds.current.top - bounds.current.height / 2;
 
     el.style.transform = `translate(${x * strength}px, ${y * strength}px)`;
   }
@@ -39,6 +53,7 @@ export default function MagneticButton({
   const props = {
     ref,
     className: `btn ${className}`,
+    onMouseEnter: handleMouseEnter,
     onMouseMove: handleMouseMove,
     onMouseLeave: handleMouseLeave,
     style: { transition: "transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)" },
