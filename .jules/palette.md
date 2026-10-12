@@ -13,3 +13,7 @@
 ## 2026-10-06 - Dynamic Filtering Accessibility
 **Learning:** Using `role="tablist"` for simple filter buttons without implementing full tab key navigation (arrow keys, etc.) causes accessibility violations. Additionally, dynamically changing content below the filters is not automatically announced to screen readers.
 **Action:** Use `role="group"` and `aria-pressed` for toggle-like filter buttons, and always pair dynamic content changes with a visually hidden `aria-live="polite"` region to announce the new state to screen readers.
+
+## 2024-10-06 - Mobile Menu Escape Key Dismissal
+**Learning:** For keyboard and screen reader accessibility, users need a way to easily dismiss a modal or mobile menu without having to shift-tab backward multiple times to find the toggle button.
+**Action:** Whenever implementing a custom mobile menu overlay or modal that traps focus or obscures content, always add an `Escape` keydown event listener to close it.
