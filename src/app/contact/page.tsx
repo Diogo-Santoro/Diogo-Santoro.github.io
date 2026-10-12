@@ -58,12 +58,14 @@ export default function ContactPage() {
         </ScrollReveal>
 
         <div>
-          {CONTACT_LINKS.map((link, i) => (
+          {CONTACT_LINKS.map((link, i) => {
+            const isExternal = /^(https?:)?\/\//i.test(link.href);
+            return (
             <ScrollReveal key={link.label} delay={200 + i * 80}>
               <a
                 href={link.href}
-                target={link.href.startsWith("mailto") ? undefined : "_blank"}
-                rel={link.href.startsWith("mailto") ? undefined : "noopener noreferrer"}
+                target={isExternal ? "_blank" : undefined}
+                rel={isExternal ? "noopener noreferrer" : undefined}
                 className="contact-row"
                 id={`contact-${link.label.toLowerCase()}`}
               >
@@ -74,7 +76,7 @@ export default function ContactPage() {
                 <span className="contact-row__arrow">→</span>
               </a>
             </ScrollReveal>
-          ))}
+          )})}
         </div>
 
         <ScrollReveal delay={500}>
