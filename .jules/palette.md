@@ -17,3 +17,7 @@
 ## 2024-10-06 - Mobile Menu Escape Key Dismissal
 **Learning:** For keyboard and screen reader accessibility, users need a way to easily dismiss a modal or mobile menu without having to shift-tab backward multiple times to find the toggle button.
 **Action:** Whenever implementing a custom mobile menu overlay or modal that traps focus or obscures content, always add an `Escape` keydown event listener to close it.
+
+## 2024-10-12 - Decorative Ligature Icons Accessibility
+**Learning:** In Next.js (or any React environment), using Google's Material Symbols via a `className` like `material-symbols-outlined` with literal strings (e.g., "arrow_right") causes screen readers to read the literal string content if not properly hidden. This creates confusion for visually impaired users who hear arbitrary text strings.
+**Action:** Always apply `aria-hidden="true"` to purely decorative ligature-based icons (like `<span className="material-symbols-outlined">icon_name</span>`) to prevent screen readers from reading the internal text ligature.
