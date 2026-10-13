@@ -45,7 +45,7 @@ export default function FeaturedCard({ project, index }: FeaturedCardProps) {
 
         <div className="featured-card__bottom">
           <span className="featured-card__arrow">
-            <span className="material-symbols-outlined" style={{ fontSize: "1rem" }}>
+            <span className="material-symbols-outlined" style={{ fontSize: "1rem" }} aria-hidden="true">
               code
             </span>
             View Project

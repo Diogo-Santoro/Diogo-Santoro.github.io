@@ -22,7 +22,7 @@ export default function ExperienceTimeline() {
             <ul className="timeline__achievements">
               {exp.achievements.map((item) => (
                 <li key={item} className="timeline__achievement">
-                  <span className="material-symbols-outlined timeline__achievement-icon">
+                  <span className="material-symbols-outlined timeline__achievement-icon" aria-hidden="true">
                     arrow_right
                   </span>
                   <span>{item}</span>
