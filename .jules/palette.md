@@ -17,3 +17,7 @@
 ## 2024-10-06 - Mobile Menu Escape Key Dismissal
 **Learning:** For keyboard and screen reader accessibility, users need a way to easily dismiss a modal or mobile menu without having to shift-tab backward multiple times to find the toggle button.
 **Action:** Whenever implementing a custom mobile menu overlay or modal that traps focus or obscures content, always add an `Escape` keydown event listener to close it.
+
+## 2024-10-13 - Ligature-Based Icon Fonts Accessibility
+**Learning:** When using ligature-based icon fonts (like Google's Material Symbols where you use `className="material-symbols-outlined"` and text content like 'code'), screen readers might read out the literal text ligature if it isn't hidden.
+**Action:** Always apply `aria-hidden="true"` to purely decorative or redundant ligature icons to prevent screen readers from reading the literal ligature text.
