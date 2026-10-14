@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, type ReactNode, type MouseEvent } from "react";
+import { useRef, useEffect, type ReactNode, type MouseEvent } from "react";
 
 interface MagneticButtonProps {
   children: ReactNode;
@@ -21,6 +21,15 @@ export default function MagneticButton({
 
   // ⚡ Bolt: Cache bounds on enter to prevent layout thrashing (synchronous reflows) during high-frequency mousemove events
   const bounds = useRef({ left: 0, top: 0, width: 0, height: 0 });
+  const rafRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+      }
+    };
+  }, []);
 
   function handleMouseEnter() {
     const el = ref.current;
@@ -41,12 +50,22 @@ export default function MagneticButton({
     const x = e.pageX - bounds.current.left - bounds.current.width / 2;
     const y = e.pageY - bounds.current.top - bounds.current.height / 2;
 
-    el.style.transform = `translate(${x * strength}px, ${y * strength}px)`;
+    if (rafRef.current !== null) {
+      cancelAnimationFrame(rafRef.current);
+    }
+
+    rafRef.current = requestAnimationFrame(() => {
+      el.style.transform = `translate(${x * strength}px, ${y * strength}px)`;
+    });
   }
 
   function handleMouseLeave() {
     const el = ref.current;
     if (!el) return;
+    if (rafRef.current !== null) {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+    }
     el.style.transform = "translate(0, 0)";
   }
 

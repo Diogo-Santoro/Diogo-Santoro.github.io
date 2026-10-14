@@ -16,3 +16,7 @@
 ## 2026-10-13 - Next.js 'use client' Directive Bloat
 **Learning:** Applying `"use client"` at the top of generic Next.js page components (like `HomeHero.tsx`) forces the entire component tree to be bundled and sent to the client as JavaScript. This unnecessarily increases the JS payload size and reduces performance.
 **Action:** Only use `"use client"` when a component strictly requires client-side features like `useState`, `useEffect`, or event listeners. Ensure server components are not wrapped unnecessarily.
+
+## 2026-10-14 - Throttle DOM Updates on Continuous Events
+**Learning:** High-frequency events like `mousemove` can trigger hundreds of synchronous style updates per second, causing layout thrashing and main thread jank when mutating DOM styles directly (e.g., inline `transform`).
+**Action:** Always debounce/throttle continuous DOM manipulations inside such event handlers using `requestAnimationFrame` to sync updates with the display refresh rate (~60Hz) and cancel pending frames on unmount or subsequent calls to prevent memory leaks and redundant paints.
