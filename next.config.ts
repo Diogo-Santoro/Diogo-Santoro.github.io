@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
+  poweredByHeader: false, // 🛡️ Sentinel: Reduce information disclosure
 };
 
 export default nextConfig;

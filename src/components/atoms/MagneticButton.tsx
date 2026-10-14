@@ -60,9 +60,11 @@ export default function MagneticButton({
   };
 
   if (href) {
-    const isExternal = /^(https?:)?\/\//i.test(href);
+    // 🛡️ Sentinel: Prevent javascript: URIs (XSS protection)
+    const safeHref = /^\s*javascript:/i.test(href) ? "#" : href;
+    const isExternal = /^(https?:)?\/\//i.test(safeHref);
     return (
-      <a {...props} href={href} target={isExternal ? "_blank" : undefined} rel={isExternal ? "noopener noreferrer" : undefined}>
+      <a {...props} href={safeHref} target={isExternal ? "_blank" : undefined} rel={isExternal ? "noopener noreferrer" : undefined}>
         <span>{children}</span>
       </a>
     );
