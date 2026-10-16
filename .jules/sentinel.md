@@ -10,3 +10,7 @@
 **Vulnerability:** Static data rendered in `href` attributes was vulnerable to potential XSS (javascript: URIs) if the data source was ever compromised or became dynamic.
 **Learning:** Native `<a>` tags in React do not automatically sanitize `href` values like `next/link` might or like custom button components do.
 **Prevention:** Always implement regex sanitization (`/^\s*javascript:/i.test(href) ? '#' : href`) for `href` inputs in UI components for complete defense-in-depth, even when consuming currently static sources.
+## 2023-10-25 - [Frontend XSS Defense-in-Depth]
+**Vulnerability:** Empty anchors resulting from XSS sanitization (`#`) were being forcefully opened in new tabs due to hardcoded `target="_blank"` attributes, exposing a minor UX issue and potential for abuse.
+**Learning:** Hardcoded `target="_blank"` attributes should not be applied to links whose `href` is dynamically sanitized, because the resulting fallback URL (e.g., `#`) is not external.
+**Prevention:** When sanitizing dynamic links against XSS (e.g., fallback to '#'), conditionally apply `target="_blank"` and `rel="noopener noreferrer"` only if the sanitized URL is genuinely external.
