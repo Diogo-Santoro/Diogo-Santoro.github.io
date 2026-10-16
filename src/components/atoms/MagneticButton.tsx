@@ -47,9 +47,8 @@ export default function MagneticButton({
     const el = ref.current;
     if (!el) return;
 
-    if (rafId.current !== null) {
-      cancelAnimationFrame(rafId.current);
-    }
+    const x = e.pageX - bounds.current.left - bounds.current.width / 2;
+    const y = e.pageY - bounds.current.top - bounds.current.height / 2;
 
     if (rafRef.current !== null) {
       cancelAnimationFrame(rafRef.current);
