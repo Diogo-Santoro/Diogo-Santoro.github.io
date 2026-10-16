@@ -118,8 +118,9 @@ export default async function ProjectDetailPage({
             <ScrollReveal delay={350}>
               <div className="project-detail__sidebar-section">
                 <h3 className="project-detail__stack-title">Source Code</h3>
+                {/* 🛡️ Sentinel: Prevent javascript: URIs (XSS protection) */}
                 <a
-                  href={project.githubUrl}
+                  href={/^\s*javascript:/i.test(project.githubUrl) ? "#" : project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="link"

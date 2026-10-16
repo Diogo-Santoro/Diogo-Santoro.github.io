@@ -59,11 +59,13 @@ export default function ContactPage() {
 
         <div>
           {CONTACT_LINKS.map((link, i) => {
-            const isExternal = /^(https?:)?\/\//i.test(link.href);
+            // 🛡️ Sentinel: Prevent javascript: URIs (XSS protection)
+            const safeHref = /^\s*javascript:/i.test(link.href) ? "#" : link.href;
+            const isExternal = /^(https?:)?\/\//i.test(safeHref);
             return (
             <ScrollReveal key={link.label} delay={200 + i * 80}>
               <a
-                href={link.href}
+                href={safeHref}
                 target={isExternal ? "_blank" : undefined}
                 rel={isExternal ? "noopener noreferrer" : undefined}
                 className="contact-row"
