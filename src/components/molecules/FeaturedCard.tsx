@@ -15,6 +15,9 @@ export default function FeaturedCard({ project, index }: FeaturedCardProps) {
       href={`/projects/${project.slug}`}
       className="featured-card"
       id={`featured-${project.slug}`}
+      // ⚡ Bolt: Disable eager prefetching on hover instead of viewport entry
+      // to prevent a waterfall of network requests when scrolling through the gallery.
+      prefetch={false}
     >
       <div className="featured-card__top">
         <div className="featured-card__number">
