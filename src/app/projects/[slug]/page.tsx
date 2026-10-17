@@ -43,8 +43,8 @@ export default async function ProjectDetailPage({
   const nextProject =
     currentIndex < projects.length - 1 ? projects[currentIndex + 1] : null;
 
-  // 🛡️ Sentinel: Prevent javascript: URIs (XSS protection)
-  const safeGithubUrl = /^\s*javascript:/i.test(project.githubUrl) ? "#" : project.githubUrl;
+  // 🛡️ Sentinel: Prevent dangerous URIs (XSS protection)
+  const safeGithubUrl = /^\s*(javascript|data|vbscript|file):/i.test(project.githubUrl) ? "#" : project.githubUrl;
   const isGithubExternal = /^(https?:)?\/\//i.test(safeGithubUrl);
 
   return (
@@ -122,7 +122,7 @@ export default async function ProjectDetailPage({
             <ScrollReveal delay={350}>
               <div className="project-detail__sidebar-section">
                 <h3 className="project-detail__stack-title">Source Code</h3>
-                {/* 🛡️ Sentinel: Prevent javascript: URIs (XSS protection) and robust external check */}
+                {/* 🛡️ Sentinel: Prevent dangerous URIs (XSS protection) and robust external check */}
                 <a
                   href={safeGithubUrl}
                   target={isGithubExternal ? "_blank" : undefined}
