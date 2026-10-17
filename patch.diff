@@ -1,0 +1,14 @@
+--- src/styles/globals.css
++++ src/styles/globals.css
+@@ -107,6 +107,11 @@
+   color: inherit;
+ }
+
++*:focus-visible {
++  outline: 2px solid var(--primary);
++  outline-offset: 2px;
++}
++
+ ul,
+ ol {
+   list-style: none;

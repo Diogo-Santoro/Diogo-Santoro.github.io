@@ -149,7 +149,6 @@ export default function Header() {
         <nav
           className={`header__mobile-nav ${mobileOpen ? "header__mobile-nav--open" : ""}`}
           aria-label="Mobile navigation"
-          inert={!mobileOpen ? true : undefined}
         >
           {NAV_LINKS.map((link) => (
             <Link
