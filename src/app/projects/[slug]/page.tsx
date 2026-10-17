@@ -43,6 +43,10 @@ export default async function ProjectDetailPage({
   const nextProject =
     currentIndex < projects.length - 1 ? projects[currentIndex + 1] : null;
 
+  // 🛡️ Sentinel: Prevent javascript: URIs (XSS protection)
+  const safeGithubUrl = /^\s*javascript:/i.test(project.githubUrl) ? "#" : project.githubUrl;
+  const isGithubExternal = /^(https?:)?\/\//i.test(safeGithubUrl);
+
   return (
     <div className="section section--first">
       <div className="container">
