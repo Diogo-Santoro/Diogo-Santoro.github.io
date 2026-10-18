@@ -11,6 +11,9 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       href={`/projects/${project.slug}`}
       className="card"
       id={`project-card-${project.slug}`}
+      // ⚡ Bolt: Disable eager prefetching on hover instead of viewport entry
+      // to prevent a waterfall of network requests when scrolling through the gallery.
+      prefetch={false}
       style={{
         display: "flex",
         flexDirection: "column",

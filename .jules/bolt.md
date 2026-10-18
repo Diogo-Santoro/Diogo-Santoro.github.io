@@ -19,3 +19,6 @@
 ## 2024-11-20 - requestAnimationFrame Debouncing for High-Frequency Inline Styles
 **Learning:** High-frequency events (like `mousemove` on `MagneticButton`) modifying inline styles directly cause main thread jank due to synchronous style recalculations.
 **Action:** Always wrap continuous DOM style mutations triggered by high-frequency events inside `requestAnimationFrame`. Cancel pending animation frames on subsequent events or component unmount to avoid visual tearing and memory leaks.
+## 2024-11-20 - Next.js Link Prefetching on Large Galleries
+**Learning:** Next.js `<Link>` components prefetch route data as soon as they enter the viewport. In a large grid (like a project gallery), this causes a waterfall of concurrent network requests, degrading page load performance and wasting bandwidth for pages the user might not visit.
+**Action:** Set `prefetch={false}` on `<Link>` components within large lists or galleries. This defers prefetching until the user hovers over the link, preserving bandwidth and reducing initial load contention.
