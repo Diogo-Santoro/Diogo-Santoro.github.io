@@ -59,8 +59,8 @@ export default function ContactPage() {
 
         <div>
           {CONTACT_LINKS.map((link, i) => {
-            // 🛡️ Sentinel: Prevent javascript: URIs (XSS protection)
-            const safeHref = /^\s*javascript:/i.test(link.href) ? "#" : link.href;
+            // 🛡️ Sentinel: Prevent dangerous URIs (XSS protection)
+            const safeHref = /^\s*(javascript|data|vbscript|file):/i.test(link.href) ? "#" : link.href;
             const isExternal = /^(https?:)?\/\//i.test(safeHref);
             return (
             <ScrollReveal key={link.label} delay={200 + i * 80}>
