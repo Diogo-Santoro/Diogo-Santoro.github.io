@@ -54,6 +54,8 @@ export default function HomeCTA() {
               </Link>
               <button
                 className="btn btn--secondary"
+                title="Copy email to clipboard"
+                aria-live="polite"
                 onClick={() => {
                   if (navigator.clipboard && navigator.clipboard.writeText) {
                     navigator.clipboard
@@ -79,6 +81,7 @@ export default function HomeCTA() {
                 >
                   {copied ? "check" : "content_copy"}
                 </span>
+                <span className="sr-only">Copy email to clipboard: </span>
                 {copied ? "Copied!" : "diogo.santoro05@gmail.com"}
               </button>
             </div>
