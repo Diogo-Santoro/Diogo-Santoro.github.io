@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useEffect, type ReactNode, type MouseEvent } from "react";
+import { sanitizeUrl, isExternalUrl } from "@/utils/security";
 
 interface MagneticButtonProps {
   children: ReactNode;
@@ -82,9 +83,9 @@ export default function MagneticButton({
   };
 
   if (href) {
-    // 🛡️ Sentinel: Prevent dangerous URIs (XSS protection)
-    const safeHref = /^\s*(javascript|data|vbscript|file):/i.test(href) ? "#" : href;
-    const isExternal = /^(https?:)?\/\//i.test(safeHref);
+    // 🛡️ Sentinel: Prevent dangerous URIs (XSS protection) via centralized logic
+    const safeHref = sanitizeUrl(href);
+    const isExternal = isExternalUrl(safeHref);
     return (
       <a {...props} href={safeHref} target={isExternal ? "_blank" : undefined} rel={isExternal ? "noopener noreferrer" : undefined}>
         <span>{children}</span>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import ScrollReveal from "@/components/atoms/ScrollReveal";
+import { sanitizeUrl, isExternalUrl } from "@/utils/security";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -59,9 +60,9 @@ export default function ContactPage() {
 
         <div>
           {CONTACT_LINKS.map((link, i) => {
-            // 🛡️ Sentinel: Prevent dangerous URIs (XSS protection)
-            const safeHref = /^\s*(javascript|data|vbscript|file):/i.test(link.href) ? "#" : link.href;
-            const isExternal = /^(https?:)?\/\//i.test(safeHref);
+            // 🛡️ Sentinel: Prevent dangerous URIs (XSS protection) via centralized logic
+            const safeHref = sanitizeUrl(link.href);
+            const isExternal = isExternalUrl(safeHref);
             return (
             <ScrollReveal key={link.label} delay={200 + i * 80}>
               <a

@@ -18,3 +18,7 @@
 **Vulnerability:** URL sanitization regex only blocked `javascript:` URIs, leaving the application vulnerable to XSS and unexpected behaviors via `data:`, `vbscript:`, and `file:` URIs.
 **Learning:** `data:` URIs (e.g., `data:text/html,<script>alert(1)</script>`) and `vbscript:` URIs can also execute arbitrary code or load malicious content when used in `href` attributes. `file:` URIs could lead to local file inclusion or unexpected access in certain environments. A comprehensive defense-in-depth approach requires blocking all potentially dangerous URI schemes, not just `javascript:`.
 **Prevention:** Always use a robust regex like `/^\s*(javascript|data|vbscript|file):/i.test(href)` when sanitizing URLs for anchor tags.
+## 2023-11-01 - Centralize URI Sanitization
+**Vulnerability:** XSS prevention (via URI sanitization regex) and reverse-tabnabbing protection were duplicated across multiple components, increasing the risk of regression in future features.
+**Learning:** Duplicating critical security regexes (e.g., `/^\s*(javascript|data|vbscript|file):/i.test(href)`) makes the application fragile. If the regex needs updating or if a new developer adds a link, the security posture degrades.
+**Prevention:** Centralize security-critical logic in a single utility (e.g., `src/utils/security.ts`) and import it wherever needed.
