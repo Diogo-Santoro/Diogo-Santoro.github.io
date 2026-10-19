@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import ScrollReveal from "@/components/atoms/ScrollReveal";
+import CopyButton from "@/components/atoms/CopyButton";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -62,23 +63,42 @@ export default function ContactPage() {
             // 🛡️ Sentinel: Prevent dangerous URIs (XSS protection)
             const safeHref = /^\s*(javascript|data|vbscript|file):/i.test(link.href) ? "#" : link.href;
             const isExternal = /^(https?:)?\/\//i.test(safeHref);
+
+            if (link.label === "Email") {
+              return (
+                <ScrollReveal key={link.label} delay={200 + i * 80}>
+                  <div
+                    className="contact-row"
+                    id={`contact-${link.label.toLowerCase()}`}
+                  >
+                    <div className="contact-row__left">
+                      <span className="contact-row__label">{link.label}</span>
+                      <span className="contact-row__value">{link.value}</span>
+                    </div>
+                    <CopyButton textToCopy={link.value} label={link.label} />
+                  </div>
+                </ScrollReveal>
+              );
+            }
+
             return (
-            <ScrollReveal key={link.label} delay={200 + i * 80}>
-              <a
-                href={safeHref}
-                target={isExternal ? "_blank" : undefined}
-                rel={isExternal ? "noopener noreferrer" : undefined}
-                className="contact-row"
-                id={`contact-${link.label.toLowerCase()}`}
-              >
-                <div className="contact-row__left">
-                  <span className="contact-row__label">{link.label}</span>
-                  <span className="contact-row__value">{link.value}</span>
-                </div>
-                <span className="contact-row__arrow">→</span>
-              </a>
-            </ScrollReveal>
-          )})}
+              <ScrollReveal key={link.label} delay={200 + i * 80}>
+                <a
+                  href={safeHref}
+                  target={isExternal ? "_blank" : undefined}
+                  rel={isExternal ? "noopener noreferrer" : undefined}
+                  className="contact-row"
+                  id={`contact-${link.label.toLowerCase()}`}
+                >
+                  <div className="contact-row__left">
+                    <span className="contact-row__label">{link.label}</span>
+                    <span className="contact-row__value">{link.value}</span>
+                  </div>
+                  <span className="contact-row__arrow">→</span>
+                </a>
+              </ScrollReveal>
+            );
+          })}
         </div>
 
         <ScrollReveal delay={500}>
