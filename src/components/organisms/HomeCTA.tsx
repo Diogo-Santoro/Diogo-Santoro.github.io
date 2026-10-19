@@ -1,11 +1,8 @@
-"use client";
-
-import { useState } from "react";
 import Link from "next/link";
 import ScrollReveal from "@/components/atoms/ScrollReveal";
+import CopyEmailButton from "@/components/atoms/CopyEmailButton";
 
 export default function HomeCTA() {
-  const [copied, setCopied] = useState(false);
   return (
     <section className="cta-band section" id="home-cta">
       <div className="container" style={{ position: "relative" }}>
@@ -52,38 +49,7 @@ export default function HomeCTA() {
                 </span>
                 Schedule a Chat
               </Link>
-              <button
-                className="btn btn--secondary"
-                title="Copy email to clipboard"
-                aria-live="polite"
-                onClick={() => {
-                  if (navigator.clipboard && navigator.clipboard.writeText) {
-                    navigator.clipboard
-                      .writeText("diogo.santoro05@gmail.com")
-                      .then(() => {
-                        setCopied(true);
-                        setTimeout(() => setCopied(false), 2000);
-                      })
-                      .catch(() =>
-                        alert("Failed to copy. Please copy manually: diogo.santoro05@gmail.com")
-                      );
-                  } else {
-                    alert(
-                      "Clipboard API not available. Please copy manually: diogo.santoro05@gmail.com"
-                    );
-                  }
-                }}
-              >
-                <span
-                  className="material-symbols-outlined"
-                  style={{ fontSize: "1.125rem" }}
-                  aria-hidden="true"
-                >
-                  {copied ? "check" : "content_copy"}
-                </span>
-                <span className="sr-only">Copy email to clipboard: </span>
-                {copied ? "Copied!" : "diogo.santoro05@gmail.com"}
-              </button>
+              <CopyEmailButton email="diogo.santoro05@gmail.com" />
             </div>
           </ScrollReveal>
 

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import ScrollReveal from "@/components/atoms/ScrollReveal";
 import { sanitizeUrl, isExternalUrl } from "@/utils/security";
+import CopyButton from "@/components/atoms/CopyButton";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -60,26 +61,26 @@ export default function ContactPage() {
 
         <div>
           {CONTACT_LINKS.map((link, i) => {
-            // 🛡️ Sentinel: Prevent dangerous URIs (XSS protection) via centralized logic
             const safeHref = sanitizeUrl(link.href);
             const isExternal = isExternalUrl(safeHref);
             return (
-            <ScrollReveal key={link.label} delay={200 + i * 80}>
-              <a
-                href={safeHref}
-                target={isExternal ? "_blank" : undefined}
-                rel={isExternal ? "noopener noreferrer" : undefined}
-                className="contact-row"
-                id={`contact-${link.label.toLowerCase()}`}
-              >
-                <div className="contact-row__left">
-                  <span className="contact-row__label">{link.label}</span>
-                  <span className="contact-row__value">{link.value}</span>
-                </div>
-                <span className="contact-row__arrow">→</span>
-              </a>
-            </ScrollReveal>
-          )})}
+              <ScrollReveal key={link.label} delay={200 + i * 80}>
+                <a
+                  href={safeHref}
+                  target={isExternal ? "_blank" : undefined}
+                  rel={isExternal ? "noopener noreferrer" : undefined}
+                  className="contact-row"
+                  id={`contact-${link.label.toLowerCase()}`}
+                >
+                  <div className="contact-row__left">
+                    <span className="contact-row__label">{link.label}</span>
+                    <span className="contact-row__value">{link.value}</span>
+                  </div>
+                  <span className="contact-row__arrow">→</span>
+                </a>
+              </ScrollReveal>
+            );
+          })}
         </div>
 
         <ScrollReveal delay={500}>
