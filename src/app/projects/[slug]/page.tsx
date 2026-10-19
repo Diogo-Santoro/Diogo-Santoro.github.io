@@ -4,6 +4,7 @@ import { projects, getProjectBySlug } from "@/data/projects";
 import { notFound } from "next/navigation";
 import ScrollReveal from "@/components/atoms/ScrollReveal";
 import MagneticButton from "@/components/atoms/MagneticButton";
+import { sanitizeUrl, isExternalUrl } from "@/utils/security";
 
 export function generateStaticParams() {
   return projects.map((project) => ({
@@ -43,9 +44,8 @@ export default async function ProjectDetailPage({
   const nextProject =
     currentIndex < projects.length - 1 ? projects[currentIndex + 1] : null;
 
-  // 🛡️ Sentinel: Prevent dangerous URIs (XSS protection)
-  const safeGithubUrl = /^\s*(javascript|data|vbscript|file):/i.test(project.githubUrl) ? "#" : project.githubUrl;
-  const isGithubExternal = /^(https?:)?\/\//i.test(safeGithubUrl);
+  const safeGithubUrl = sanitizeUrl(project.githubUrl);
+  const isGithubExternal = isExternalUrl(safeGithubUrl);
 
   return (
     <div className="section section--first">
