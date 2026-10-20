@@ -4,6 +4,7 @@ import { projects, getProjectBySlug } from "@/data/projects";
 import { notFound } from "next/navigation";
 import ScrollReveal from "@/components/atoms/ScrollReveal";
 import MagneticButton from "@/components/atoms/MagneticButton";
+import { sanitizeUrl, isExternalUrl } from "@/utils/security";
 
 export function generateStaticParams() {
   return projects.map((project) => ({
@@ -26,11 +27,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function ProjectDetailPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function ProjectDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const project = getProjectBySlug(slug);
 
@@ -40,12 +37,10 @@ export default async function ProjectDetailPage({
 
   const currentIndex = projects.findIndex((p) => p.slug === slug);
   const prevProject = currentIndex > 0 ? projects[currentIndex - 1] : null;
-  const nextProject =
-    currentIndex < projects.length - 1 ? projects[currentIndex + 1] : null;
+  const nextProject = currentIndex < projects.length - 1 ? projects[currentIndex + 1] : null;
 
-  // 🛡️ Sentinel: Prevent dangerous URIs (XSS protection)
-  const safeGithubUrl = /^\s*(javascript|data|vbscript|file):/i.test(project.githubUrl) ? "#" : project.githubUrl;
-  const isGithubExternal = /^(https?:)?\/\//i.test(safeGithubUrl);
+  const safeGithubUrl = sanitizeUrl(project.githubUrl);
+  const isGithubExternal = isExternalUrl(safeGithubUrl);
 
   return (
     <div className="section section--first">
@@ -63,14 +58,13 @@ export default async function ProjectDetailPage({
           </ScrollReveal>
           <ScrollReveal delay={150}>
             <div className="project-detail__meta">
-              <span className="pill" style={{ borderColor: "var(--accent)", color: "var(--accent)" }}>
+              <span
+                className="pill"
+                style={{ borderColor: "var(--accent)", color: "var(--accent)" }}
+              >
                 {project.category}
               </span>
-              <MagneticButton
-                href={project.githubUrl}
-                className=""
-                strength={0.2}
-              >
+              <MagneticButton href={project.githubUrl} className="" strength={0.2}>
                 View on GitHub ↗
               </MagneticButton>
             </div>
@@ -81,17 +75,13 @@ export default async function ProjectDetailPage({
         <div className="project-detail__body">
           <div>
             <ScrollReveal delay={200}>
-              <p className="project-detail__description">
-                {project.longDescription}
-              </p>
+              <p className="project-detail__description">{project.longDescription}</p>
             </ScrollReveal>
 
             {project.highlights.length > 0 && (
               <ScrollReveal delay={250}>
                 <div>
-                  <h2 className="project-detail__highlights-title">
-                    Key Highlights
-                  </h2>
+                  <h2 className="project-detail__highlights-title">Key Highlights</h2>
                   <div className="project-detail__highlights-list">
                     {project.highlights.map((highlight, i) => (
                       <p key={i} className="project-detail__highlight">
@@ -122,7 +112,6 @@ export default async function ProjectDetailPage({
             <ScrollReveal delay={350}>
               <div className="project-detail__sidebar-section">
                 <h3 className="project-detail__stack-title">Source Code</h3>
-                {/* 🛡️ Sentinel: Prevent dangerous URIs (XSS protection) and robust external check */}
                 <a
                   href={safeGithubUrl}
                   target={isGithubExternal ? "_blank" : undefined}
@@ -140,10 +129,7 @@ export default async function ProjectDetailPage({
         {/* Prev / Next navigation */}
         <nav className="project-nav" aria-label="Project navigation">
           {prevProject ? (
-            <Link
-              href={`/projects/${prevProject.slug}`}
-              className="project-nav__item"
-            >
+            <Link href={`/projects/${prevProject.slug}`} className="project-nav__item">
               <span className="project-nav__label">← Previous</span>
               <span className="project-nav__name">{prevProject.title}</span>
             </Link>
