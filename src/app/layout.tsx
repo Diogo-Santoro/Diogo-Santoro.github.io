@@ -78,9 +78,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         )}
       </head>
       <body>
-        <a href="#main-content" className="sr-only focus:not-sr-only">Skip to main content</a>
+        <a href="#main-content" className="sr-only focus:not-sr-only">
+          Skip to main content
+        </a>
         <Header />
-        <main id="main-content" tabIndex={-1}>{children}</main>
+        <main id="main-content" tabIndex={-1}>
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

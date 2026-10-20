@@ -16,7 +16,11 @@ export default function HomeCTA() {
               className="text-label"
               style={{ marginBottom: "var(--space-xs)", display: "flex" }}
             >
-              <span className="material-symbols-outlined" style={{ fontSize: "0.875rem" }} aria-hidden="true">
+              <span
+                className="material-symbols-outlined"
+                style={{ fontSize: "0.875rem" }}
+                aria-hidden="true"
+              >
                 handshake
               </span>
               LET&apos;S TALK?

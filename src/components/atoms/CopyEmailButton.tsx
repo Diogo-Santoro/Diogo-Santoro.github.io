@@ -24,9 +24,7 @@ export default function CopyEmailButton({ email }: CopyEmailButtonProps) {
               setCopied(true);
               setTimeout(() => setCopied(false), 2000);
             })
-            .catch(() =>
-              alert(`Failed to copy. Please copy manually: ${email}`)
-            );
+            .catch(() => alert(`Failed to copy. Please copy manually: ${email}`));
         } else {
           alert(`Clipboard API not available. Please copy manually: ${email}`);
         }

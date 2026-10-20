@@ -15,7 +15,11 @@ export default function FeaturedStrip({ projects }: FeaturedStripProps) {
           <div className="featured-strip__header">
             <div>
               <span className="text-label">
-                <span className="material-symbols-outlined" style={{ fontSize: "0.875rem" }} aria-hidden="true">
+                <span
+                  className="material-symbols-outlined"
+                  style={{ fontSize: "0.875rem" }}
+                  aria-hidden="true"
+                >
                   terminal
                 </span>
                 FEATURED WORK
@@ -25,7 +29,7 @@ export default function FeaturedStrip({ projects }: FeaturedStripProps) {
               </h2>
             </div>
             <Link href="/projects" className="link">
-              View all projects →
+              View all projects <span aria-hidden="true">→</span>
             </Link>
           </div>
         </ScrollReveal>

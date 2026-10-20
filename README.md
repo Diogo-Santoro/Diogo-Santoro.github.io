@@ -23,11 +23,13 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 This project uses [Playwright](https://playwright.dev/) for End-to-End (E2E) testing.
 
 To run the E2E tests in headless mode:
+
 ```bash
 npm run test:e2e
 ```
 
 To run the E2E tests with the interactive UI:
+
 ```bash
 npm run test:e2e:ui
 ```

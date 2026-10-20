@@ -26,11 +26,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function ProjectDetailPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function ProjectDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const project = getProjectBySlug(slug);
 
@@ -40,11 +36,12 @@ export default async function ProjectDetailPage({
 
   const currentIndex = projects.findIndex((p) => p.slug === slug);
   const prevProject = currentIndex > 0 ? projects[currentIndex - 1] : null;
-  const nextProject =
-    currentIndex < projects.length - 1 ? projects[currentIndex + 1] : null;
+  const nextProject = currentIndex < projects.length - 1 ? projects[currentIndex + 1] : null;
 
   // 🛡️ Sentinel: Prevent dangerous URIs (XSS protection)
-  const safeGithubUrl = /^\s*(javascript|data|vbscript|file):/i.test(project.githubUrl) ? "#" : project.githubUrl;
+  const safeGithubUrl = /^\s*(javascript|data|vbscript|file):/i.test(project.githubUrl)
+    ? "#"
+    : project.githubUrl;
   const isGithubExternal = /^(https?:)?\/\//i.test(safeGithubUrl);
 
   return (
@@ -52,7 +49,7 @@ export default async function ProjectDetailPage({
       <div className="container">
         <ScrollReveal>
           <Link href="/projects" className="project-detail__back">
-            ← Back to Projects
+            <span aria-hidden="true">←</span> Back to Projects
           </Link>
         </ScrollReveal>
 
@@ -63,15 +60,14 @@ export default async function ProjectDetailPage({
           </ScrollReveal>
           <ScrollReveal delay={150}>
             <div className="project-detail__meta">
-              <span className="pill" style={{ borderColor: "var(--accent)", color: "var(--accent)" }}>
+              <span
+                className="pill"
+                style={{ borderColor: "var(--accent)", color: "var(--accent)" }}
+              >
                 {project.category}
               </span>
-              <MagneticButton
-                href={project.githubUrl}
-                className=""
-                strength={0.2}
-              >
-                View on GitHub ↗
+              <MagneticButton href={project.githubUrl} className="" strength={0.2}>
+                View on GitHub <span aria-hidden="true">↗</span>
               </MagneticButton>
             </div>
           </ScrollReveal>
@@ -81,17 +77,13 @@ export default async function ProjectDetailPage({
         <div className="project-detail__body">
           <div>
             <ScrollReveal delay={200}>
-              <p className="project-detail__description">
-                {project.longDescription}
-              </p>
+              <p className="project-detail__description">{project.longDescription}</p>
             </ScrollReveal>
 
             {project.highlights.length > 0 && (
               <ScrollReveal delay={250}>
                 <div>
-                  <h2 className="project-detail__highlights-title">
-                    Key Highlights
-                  </h2>
+                  <h2 className="project-detail__highlights-title">Key Highlights</h2>
                   <div className="project-detail__highlights-list">
                     {project.highlights.map((highlight, i) => (
                       <p key={i} className="project-detail__highlight">
@@ -130,7 +122,8 @@ export default async function ProjectDetailPage({
                   className="link"
                   style={{ fontSize: "var(--text-sm)" }}
                 >
-                  {project.githubUrl.replace("https://github.com/", "")} ↗
+                  {project.githubUrl.replace("https://github.com/", "")}{" "}
+                  <span aria-hidden="true">↗</span>
                 </a>
               </div>
             </ScrollReveal>
@@ -140,11 +133,10 @@ export default async function ProjectDetailPage({
         {/* Prev / Next navigation */}
         <nav className="project-nav" aria-label="Project navigation">
           {prevProject ? (
-            <Link
-              href={`/projects/${prevProject.slug}`}
-              className="project-nav__item"
-            >
-              <span className="project-nav__label">← Previous</span>
+            <Link href={`/projects/${prevProject.slug}`} className="project-nav__item">
+              <span className="project-nav__label">
+                <span aria-hidden="true">←</span> Previous
+              </span>
               <span className="project-nav__name">{prevProject.title}</span>
             </Link>
           ) : (
@@ -155,7 +147,9 @@ export default async function ProjectDetailPage({
               href={`/projects/${nextProject.slug}`}
               className="project-nav__item project-nav__item--next"
             >
-              <span className="project-nav__label">Next →</span>
+              <span className="project-nav__label">
+                Next <span aria-hidden="true">→</span>
+              </span>
               <span className="project-nav__name">{nextProject.title}</span>
             </Link>
           )}
