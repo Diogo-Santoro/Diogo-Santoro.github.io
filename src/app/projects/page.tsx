@@ -34,9 +34,8 @@ export default function ProjectsPage() {
               marginBottom: "var(--space-3xl)",
             }}
           >
-            A collection of projects spanning frontend, backend, full-stack,
-            DevOps, and game development — from corporate tools to personal
-            experiments.
+            A collection of projects spanning frontend, backend, full-stack, DevOps, and game
+            development — from corporate tools to personal experiments.
           </p>
         </ScrollReveal>
 

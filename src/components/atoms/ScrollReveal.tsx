@@ -72,11 +72,7 @@ export default function ScrollReveal({
   }, [threshold]);
 
   const directionClass =
-    direction === "left"
-      ? "reveal--left"
-      : direction === "scale"
-        ? "reveal--scale"
-        : "";
+    direction === "left" ? "reveal--left" : direction === "scale" ? "reveal--scale" : "";
 
   return (
     <div

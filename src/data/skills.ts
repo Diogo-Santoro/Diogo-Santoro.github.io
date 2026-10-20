@@ -41,14 +41,7 @@ export const skills: SkillGroup[] = [
   },
   {
     category: "Tools & Practices",
-    items: [
-      "Git & GitHub",
-      "DBeaver",
-      "Postman",
-      "Agile / Scrum",
-      "Grafana",
-      "Observability",
-    ],
+    items: ["Git & GitHub", "DBeaver", "Postman", "Agile / Scrum", "Grafana", "Observability"],
   },
 ];
 

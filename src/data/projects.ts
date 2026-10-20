@@ -1,9 +1,4 @@
-export type ProjectCategory =
-  | "Frontend"
-  | "Backend"
-  | "Full-Stack"
-  | "DevOps"
-  | "Games";
+export type ProjectCategory = "Frontend" | "Backend" | "Full-Stack" | "DevOps" | "Games";
 
 export interface Project {
   slug: string;
@@ -26,7 +21,14 @@ export const projects: Project[] = [
     longDescription:
       "A high-performance landing page created for Santoro Serviços, an occupational physiotherapy practice. The project was architected with enterprise-ready patterns — full separation of concerns with centralized content dictionaries, granular componentization, and end-to-end testing with Playwright. Lighthouse CI runs in the GitHub Actions pipeline to enforce performance budgets on every commit.",
     category: "Frontend",
-    techStack: ["React 19", "Vite", "TypeScript", "Tailwind CSS v4", "Playwright", "GitHub Actions"],
+    techStack: [
+      "React 19",
+      "Vite",
+      "TypeScript",
+      "Tailwind CSS v4",
+      "Playwright",
+      "GitHub Actions",
+    ],
     githubUrl: "https://github.com/Diogo-Santoro/SantoroServicos",
     featured: true,
     highlights: [
@@ -175,8 +177,7 @@ export const projects: Project[] = [
   {
     slug: "job-project",
     title: "Job Platform",
-    description:
-      "Job platform with a Next.js web frontend and a React Native mobile app.",
+    description: "Job platform with a Next.js web frontend and a React Native mobile app.",
     longDescription:
       "A job recruitment platform built with both web and mobile interfaces. The web frontend uses Next.js with TypeScript for server-rendered pages and optimal SEO. The mobile companion app is built with React Native for cross-platform availability. The project demonstrates full-stack development across multiple platforms with shared business logic.",
     category: "Full-Stack",
@@ -209,8 +210,7 @@ export const projects: Project[] = [
   {
     slug: "java-crud",
     title: "Java CRUD API",
-    description:
-      "RESTful CRUD API built with Java and Spring Boot, tested with Postman.",
+    description: "RESTful CRUD API built with Java and Spring Boot, tested with Postman.",
     longDescription:
       "A clean RESTful API implementing CRUD operations for user management. Built with Java and Spring Boot, backed by a MySQL database. All endpoints are designed following REST conventions and thoroughly tested with Postman. A foundational project demonstrating Spring Boot's auto-configuration, dependency injection, and JPA/Hibernate integration.",
     category: "Backend",

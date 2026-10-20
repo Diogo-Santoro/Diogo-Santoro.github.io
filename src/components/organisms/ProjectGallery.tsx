@@ -21,11 +21,7 @@ export default function ProjectGallery() {
   return (
     <div id="project-gallery">
       {/* Filter bar */}
-      <FilterBar
-        filters={filters}
-        activeFilter={activeFilter}
-        onFilterChange={setActiveFilter}
-      />
+      <FilterBar filters={filters} activeFilter={activeFilter} onFilterChange={setActiveFilter} />
 
       {/* Project grid */}
       <div className="grid grid--3 stagger-children">
@@ -44,7 +40,8 @@ export default function ProjectGallery() {
 
       {/* Screen reader announcement for dynamic filtering */}
       <div aria-live="polite" aria-atomic="true" className="sr-only">
-        Showing {filteredProjects.length} {filteredProjects.length === 1 ? 'project' : 'projects'} in {activeFilter} category.
+        Showing {filteredProjects.length} {filteredProjects.length === 1 ? "project" : "projects"}{" "}
+        in {activeFilter} category.
       </div>
     </div>
   );

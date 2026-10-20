@@ -1,4 +1,3 @@
-
 import Link from "next/link";
 import ScrollReveal from "@/components/atoms/ScrollReveal";
 

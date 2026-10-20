@@ -42,35 +42,32 @@ export default function ContactPage() {
               marginBottom: "var(--space-lg)",
             }}
           >
-            Let&apos;s build<br />
-            <span className="text-accent text-italic">something</span><span className="text-accent">.</span>
+            Let&apos;s build
+            <br />
+            <span className="text-accent text-italic">something</span>
+            <span className="text-accent">.</span>
           </h1>
         </ScrollReveal>
 
         <ScrollReveal delay={150}>
-          <p
-            className="text-body"
-            style={{ marginBottom: "var(--space-3xl)", maxWidth: "520px" }}
-          >
-            I&apos;m currently based in Vigo, Spain with an active work permit — 
-            open to full-time roles, freelance projects, or just a good conversation 
-            about technology.
+          <p className="text-body" style={{ marginBottom: "var(--space-3xl)", maxWidth: "520px" }}>
+            I&apos;m currently based in Vigo, Spain with an active work permit — open to full-time
+            roles, freelance projects, or just a good conversation about technology.
           </p>
         </ScrollReveal>
 
         <div>
           {CONTACT_LINKS.map((link, i) => {
             // 🛡️ Sentinel: Prevent dangerous URIs (XSS protection)
-            const safeHref = /^\s*(javascript|data|vbscript|file):/i.test(link.href) ? "#" : link.href;
+            const safeHref = /^\s*(javascript|data|vbscript|file):/i.test(link.href)
+              ? "#"
+              : link.href;
             const isExternal = /^(https?:)?\/\//i.test(safeHref);
 
             if (link.label === "Email") {
               return (
                 <ScrollReveal key={link.label} delay={200 + i * 80}>
-                  <div
-                    className="contact-row"
-                    id={`contact-${link.label.toLowerCase()}`}
-                  >
+                  <div className="contact-row" id={`contact-${link.label.toLowerCase()}`}>
                     <div className="contact-row__left">
                       <span className="contact-row__label">{link.label}</span>
                       <span className="contact-row__value">{link.value}</span>
@@ -94,7 +91,9 @@ export default function ContactPage() {
                     <span className="contact-row__label">{link.label}</span>
                     <span className="contact-row__value">{link.value}</span>
                   </div>
-                  <span className="contact-row__arrow">→</span>
+                  <span className="contact-row__arrow" aria-hidden="true">
+                    →
+                  </span>
                 </a>
               </ScrollReveal>
             );
@@ -107,8 +106,11 @@ export default function ContactPage() {
               Location
             </p>
             <p className="text-body">
-              Vigo, Galicia, Spain<br />
-              <span className="text-small">Legal Status: EU Citizen (DNI) / Active Work Permit</span>
+              Vigo, Galicia, Spain
+              <br />
+              <span className="text-small">
+                Legal Status: EU Citizen (DNI) / Active Work Permit
+              </span>
             </p>
           </div>
         </ScrollReveal>

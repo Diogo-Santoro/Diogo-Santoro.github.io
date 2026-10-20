@@ -86,7 +86,12 @@ export default function MagneticButton({
     const safeHref = /^\s*(javascript|data|vbscript|file):/i.test(href) ? "#" : href;
     const isExternal = /^(https?:)?\/\//i.test(safeHref);
     return (
-      <a {...props} href={safeHref} target={isExternal ? "_blank" : undefined} rel={isExternal ? "noopener noreferrer" : undefined}>
+      <a
+        {...props}
+        href={safeHref}
+        target={isExternal ? "_blank" : undefined}
+        rel={isExternal ? "noopener noreferrer" : undefined}
+      >
         <span>{children}</span>
       </a>
     );
