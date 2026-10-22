@@ -53,7 +53,7 @@ export default async function ProjectDetailPage({
       <div className="container">
         <ScrollReveal>
           <Link href="/projects" className="project-detail__back">
-            ← Back to Projects
+            <span aria-hidden="true">←</span> Back to Projects
           </Link>
         </ScrollReveal>
 
@@ -145,7 +145,7 @@ export default async function ProjectDetailPage({
               href={`/projects/${prevProject.slug}`}
               className="project-nav__item"
             >
-              <span className="project-nav__label">← Previous</span>
+              <span className="project-nav__label"><span aria-hidden="true">←</span> Previous</span>
               <span className="project-nav__name">{prevProject.title}</span>
             </Link>
           ) : (
@@ -156,7 +156,7 @@ export default async function ProjectDetailPage({
               href={`/projects/${nextProject.slug}`}
               className="project-nav__item project-nav__item--next"
             >
-              <span className="project-nav__label">Next →</span>
+              <span className="project-nav__label">Next <span aria-hidden="true">→</span></span>
               <span className="project-nav__name">{nextProject.title}</span>
             </Link>
           )}

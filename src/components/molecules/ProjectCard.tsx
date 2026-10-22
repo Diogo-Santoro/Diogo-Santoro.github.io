@@ -32,7 +32,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         ))}
       </div>
       <span className="card__arrow" style={{ marginTop: "var(--space-lg)" }}>
-        View Project →
+        View Project <span aria-hidden="true">→</span>
       </span>
     </Link>
   );

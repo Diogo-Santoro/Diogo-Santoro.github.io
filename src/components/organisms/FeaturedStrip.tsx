@@ -25,7 +25,7 @@ export default function FeaturedStrip({ projects }: FeaturedStripProps) {
               </h2>
             </div>
             <Link href="/projects" className="link">
-              View all projects →
+              View all projects <span aria-hidden="true">→</span>
             </Link>
           </div>
         </ScrollReveal>
