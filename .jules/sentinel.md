@@ -18,3 +18,11 @@
 **Vulnerability:** URL sanitization regex only blocked `javascript:` URIs, leaving the application vulnerable to XSS and unexpected behaviors via `data:`, `vbscript:`, and `file:` URIs.
 **Learning:** `data:` URIs (e.g., `data:text/html,<script>alert(1)</script>`) and `vbscript:` URIs can also execute arbitrary code or load malicious content when used in `href` attributes. `file:` URIs could lead to local file inclusion or unexpected access in certain environments. A comprehensive defense-in-depth approach requires blocking all potentially dangerous URI schemes, not just `javascript:`.
 **Prevention:** Always use a robust regex like `/^\s*(javascript|data|vbscript|file):/i.test(href)` when sanitizing URLs for anchor tags.
+## 2025-02-28 - Incomplete URI Sanitization
+**Vulnerability:** URL sanitization regex only blocked `javascript:` URIs, leaving the application vulnerable to XSS and unexpected behaviors via `data:`, `vbscript:`, and `file:` URIs.
+**Learning:** `data:` URIs (e.g., `data:text/html,<script>alert(1)</script>`) and `vbscript:` URIs can also execute arbitrary code or load malicious content when used in `href` attributes. `file:` URIs could lead to local file inclusion or unexpected access in certain environments. A comprehensive defense-in-depth approach requires blocking all potentially dangerous URI schemes, not just `javascript:`.
+**Prevention:** Always use a robust regex like `/^\s*(javascript|data|vbscript|file):/i.test(href)` when sanitizing URLs for anchor tags.
+## 2025-02-28 - Incomplete URI Sanitization
+**Vulnerability:** URL sanitization regex only blocked `javascript:` URIs, leaving the application vulnerable to XSS and unexpected behaviors via `data:`, `vbscript:`, and `file:` URIs.
+**Learning:** `data:` URIs (e.g., `data:text/html,<script>alert(1)</script>`) and `vbscript:` URIs can also execute arbitrary code or load malicious content when used in `href` attributes. `file:` URIs could lead to local file inclusion or unexpected access in certain environments. A comprehensive defense-in-depth approach requires blocking all potentially dangerous URI schemes, not just `javascript:`.
+**Prevention:** Always use a robust regex like `/^\s*(javascript|data|vbscript|file):/i.test(href)` when sanitizing URLs for anchor tags.
