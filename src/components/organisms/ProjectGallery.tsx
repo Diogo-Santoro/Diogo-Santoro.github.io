@@ -8,6 +8,9 @@ import ProjectCard from "@/components/molecules/ProjectCard";
 
 type FilterOption = "All" | ProjectCategory;
 
+// ⚡ Bolt: Move filters array outside component to prevent recreation on every render
+const filters: FilterOption[] = ["All", ...projectCategories];
+
 export default function ProjectGallery() {
   const [activeFilter, setActiveFilter] = useState<FilterOption>("All");
 
@@ -15,8 +18,6 @@ export default function ProjectGallery() {
     if (activeFilter === "All") return projects;
     return projects.filter((p) => p.category === activeFilter);
   }, [activeFilter]);
-
-  const filters: FilterOption[] = ["All", ...projectCategories];
 
   return (
     <div id="project-gallery">
