@@ -7,7 +7,9 @@
  * Blocks javascript:, data:, vbscript:, and file: protocols.
  */
 export function sanitizeUrl(href: string): string {
-  return /^\s*(javascript|data|vbscript|file):/i.test(href) ? "#" : href;
+  // Strip control characters and whitespace to prevent bypasses like 'java\nscript:' or 'java\x00script:'
+  const normalized = href.replace(/[\u0000-\u001F\u007F-\u009F\s]/g, "");
+  return /^(javascript|data|vbscript|file):/i.test(normalized) ? "#" : href;
 }
 
 /**
