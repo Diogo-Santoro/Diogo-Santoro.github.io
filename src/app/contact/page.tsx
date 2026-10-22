@@ -95,7 +95,7 @@ export default function ContactPage() {
                     <span className="contact-row__label">{link.label}</span>
                     <span className="contact-row__value">{link.value}</span>
                   </div>
-                  <span className="contact-row__arrow">→</span>
+                  <span className="contact-row__arrow" aria-hidden="true">→</span>
                 </a>
               </ScrollReveal>
             );
@@ -120,7 +120,7 @@ export default function ContactPage() {
               Languages
             </p>
             <p className="text-body">
-              Portuguese (Native) · English (Advanced) · Spanish (Intermediate)
+              Portuguese (Native) <span aria-hidden="true">·</span> English (Advanced) <span aria-hidden="true">·</span> Spanish (Intermediate)
             </p>
           </div>
         </ScrollReveal>
