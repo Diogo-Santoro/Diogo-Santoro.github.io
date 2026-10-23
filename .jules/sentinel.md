@@ -26,3 +26,7 @@
 **Vulnerability:** URL sanitization regex only blocked `javascript:` URIs, leaving the application vulnerable to XSS and unexpected behaviors via `data:`, `vbscript:`, and `file:` URIs.
 **Learning:** `data:` URIs (e.g., `data:text/html,<script>alert(1)</script>`) and `vbscript:` URIs can also execute arbitrary code or load malicious content when used in `href` attributes. `file:` URIs could lead to local file inclusion or unexpected access in certain environments. A comprehensive defense-in-depth approach requires blocking all potentially dangerous URI schemes, not just `javascript:`.
 **Prevention:** Always use a robust regex like `/^\s*(javascript|data|vbscript|file):/i.test(href)` when sanitizing URLs for anchor tags.
+## 2024-10-24 - URL Sanitization XSS Bypass
+**Vulnerability:** URL sanitization function could be bypassed by inserting control characters or whitespace into the protocol (e.g. `java\nscript:`).
+**Learning:** Browsers are permissive when parsing URLs and will often ignore whitespace and control characters when determining the protocol for execution. Simple regex matching on the raw string is insufficient.
+**Prevention:** Always strip control characters and whitespace (`[\u0000-\u001F\u007F-\u009F\s]`) before checking the protocol for dangerous schemes.
