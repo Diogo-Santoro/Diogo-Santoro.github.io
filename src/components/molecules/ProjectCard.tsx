@@ -1,3 +1,4 @@
+import React from "react";
 import Link from "next/link";
 import type { Project } from "@/data/projects";
 
@@ -5,7 +6,7 @@ interface ProjectCardProps {
   project: Project;
 }
 
-export default function ProjectCard({ project }: ProjectCardProps) {
+const ProjectCard = React.memo(function ProjectCard({ project }: ProjectCardProps) {
   return (
     <Link
       href={`/projects/${project.slug}`}
@@ -36,4 +37,6 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       </span>
     </Link>
   );
-}
+});
+
+export default ProjectCard;

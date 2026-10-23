@@ -8,6 +8,8 @@ import ProjectCard from "@/components/molecules/ProjectCard";
 
 type FilterOption = "All" | ProjectCategory;
 
+const FILTERS: FilterOption[] = ["All", ...projectCategories];
+
 export default function ProjectGallery() {
   const [activeFilter, setActiveFilter] = useState<FilterOption>("All");
 
@@ -16,13 +18,11 @@ export default function ProjectGallery() {
     return projects.filter((p) => p.category === activeFilter);
   }, [activeFilter]);
 
-  const filters: FilterOption[] = ["All", ...projectCategories];
-
   return (
     <div id="project-gallery">
       {/* Filter bar */}
       <FilterBar
-        filters={filters}
+        filters={FILTERS}
         activeFilter={activeFilter}
         onFilterChange={setActiveFilter}
       />
