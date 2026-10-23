@@ -74,10 +74,10 @@ export default function HomeHero() {
         {/* Meta Line */}
         <ScrollReveal delay={350}>
           <div className="hero__meta">
-            <span className="hero__meta-chevron">&gt;&gt;</span>
+            <span className="hero__meta-chevron" aria-hidden="true">&gt;&gt;</span>
             <span className="hero__meta-label">STACK:</span>
             <span>Spring Boot / React / DevOps / IaC</span>
-            <span className="hero__meta-separator">|</span>
+            <span className="hero__meta-separator" aria-hidden="true">|</span>
             <span className="hero__meta-value">Vigo, Spain</span>
           </div>
         </ScrollReveal>
