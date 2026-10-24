@@ -16,7 +16,11 @@ export default function HomeCTA() {
               className="text-label"
               style={{ marginBottom: "var(--space-xs)", display: "flex" }}
             >
-              <span className="material-symbols-outlined" style={{ fontSize: "0.875rem" }} aria-hidden="true">
+              <span
+                className="material-symbols-outlined"
+                style={{ fontSize: "0.875rem" }}
+                aria-hidden="true"
+              >
                 handshake
               </span>
               LET&apos;S TALK?
@@ -65,7 +69,7 @@ export default function HomeCTA() {
                 </span>
                 Avg response: &lt; 4 hours
               </span>
-              <span>•</span>
+              <span aria-hidden="true">•</span>
               <span>Full-Time / Freelance / Contract</span>
             </div>
           </ScrollReveal>
