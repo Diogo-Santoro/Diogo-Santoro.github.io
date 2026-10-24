@@ -1,3 +1,4 @@
+import { memo } from "react";
 import Link from "next/link";
 import type { Project } from "@/data/projects";
 
@@ -5,7 +6,10 @@ interface ProjectCardProps {
   project: Project;
 }
 
-export default function ProjectCard({ project }: ProjectCardProps) {
+// ⚡ Bolt: Wrapped pure, stateless child component in React.memo()
+// to prevent unnecessary re-rendering of stable items when parent
+// (ProjectGallery) triggers state updates via filtering.
+const ProjectCard = memo(function ProjectCard({ project }: ProjectCardProps) {
   return (
     <Link
       href={`/projects/${project.slug}`}
@@ -36,4 +40,6 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       </span>
     </Link>
   );
-}
+});
+
+export default ProjectCard;
