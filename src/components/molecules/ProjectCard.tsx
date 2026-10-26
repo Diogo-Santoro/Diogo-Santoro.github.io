@@ -1,3 +1,4 @@
+import { memo } from "react";
 import Link from "next/link";
 import type { Project } from "@/data/projects";
 
@@ -5,7 +6,9 @@ interface ProjectCardProps {
   project: Project;
 }
 
-export default function ProjectCard({ project }: ProjectCardProps) {
+// ⚡ Bolt: Wrap the pure component in React.memo() to prevent unnecessary
+// re-rendering of stable items when the parent state (like activeFilter) changes.
+const ProjectCard = memo(function ProjectCard({ project }: ProjectCardProps) {
   return (
     <Link
       href={`/projects/${project.slug}`}
@@ -36,4 +39,6 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       </span>
     </Link>
   );
-}
+});
+
+export default ProjectCard;

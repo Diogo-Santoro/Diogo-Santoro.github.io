@@ -22,3 +22,6 @@
 ## 2024-11-20 - Next.js Link Prefetching on Large Galleries
 **Learning:** Next.js `<Link>` components prefetch route data as soon as they enter the viewport. In a large grid (like a project gallery), this causes a waterfall of concurrent network requests, degrading page load performance and wasting bandwidth for pages the user might not visit.
 **Action:** Set `prefetch={false}` on `<Link>` components within large lists or galleries. This defers prefetching until the user hovers over the link, preserving bandwidth and reducing initial load contention.
+## 2024-11-20 - React.memo() with dynamic children
+**Learning:** Extracting static configurations (e.g. constant array data) outside the component limits overhead during re-renders, particularly memory allocation. Furthermore, wrapping pure, stateless child components inside `React.memo()` avoids unnecessary re-rendering triggered by parent component state changes (like filter logic), greatly optimizing component trees mapped from arrays.
+**Action:** Identify stateless children that are repeatedly re-rendered due to parent state updates and use `React.memo()`. Also, declare any non-dynamic component configuration arrays outside the React component rendering scope to minimize overhead.
