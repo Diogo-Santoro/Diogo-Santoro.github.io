@@ -120,7 +120,7 @@ export default function ContactPage() {
               Languages
             </p>
             <p className="text-body">
-              Portuguese (Native) · English (Advanced) · Spanish (Intermediate)
+              Portuguese (Native) <span aria-hidden="true">·</span> English (Advanced) <span aria-hidden="true">·</span> Spanish (Intermediate)
             </p>
           </div>
         </ScrollReveal>
