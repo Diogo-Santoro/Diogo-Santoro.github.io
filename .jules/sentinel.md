@@ -30,3 +30,7 @@
 **Vulnerability:** URL sanitization function could be bypassed by inserting control characters or whitespace into the protocol (e.g. `java\nscript:`).
 **Learning:** Browsers are permissive when parsing URLs and will often ignore whitespace and control characters when determining the protocol for execution. Simple regex matching on the raw string is insufficient.
 **Prevention:** Always strip control characters and whitespace (`[\u0000-\u001F\u007F-\u009F\s]`) before checking the protocol for dangerous schemes.
+## 2025-02-28 - Unrobust External URL Detection (Backslash Normalization Bypass)
+**Vulnerability:** External link logic (`/^(https?:)?\/\//i.test(href)`) missed backslash normalization (`\\` or `/\` or `\/`), allowing protocol-relative URLs with backslashes (e.g., `https:\\evil.com` or `\\evil.com`) to bypass the check and fail to apply `rel="noopener noreferrer"`.
+**Learning:** Browsers normalize backslashes to forward slashes in URLs. When determining if a URL is external to dynamically apply security attributes (like `rel="noopener noreferrer"`), checking only for forward slashes is insufficient. Attackers can use backslashes to bypass these checks while the browser still navigates to the external domain, opening the application up to reverse tabnabbing.
+**Prevention:** Always use a regex that matches both forward and backward slashes (e.g., `/^(https?:)?[\\/]{2}/i.test(href)`) when dynamically applying security attributes to external links.
