@@ -88,7 +88,10 @@ export default function MagneticButton({
     const isExternal = isExternalUrl(safeHref);
     return (
       <a {...props} href={safeHref} target={isExternal ? "_blank" : undefined} rel={isExternal ? "noopener noreferrer" : undefined}>
-        <span>{children}</span>
+        <span>
+          {children}
+          {isExternal && <span className="sr-only"> (opens in a new tab)</span>}
+        </span>
       </a>
     );
   }
