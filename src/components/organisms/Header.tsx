@@ -139,6 +139,7 @@ export default function Header() {
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
           aria-expanded={mobileOpen}
+          aria-controls="mobile-menu"
           id="mobile-menu-toggle"
         >
           <span />
@@ -147,6 +148,7 @@ export default function Header() {
         </button>
 
         <nav
+          id="mobile-menu"
           className={`header__mobile-nav ${mobileOpen ? "header__mobile-nav--open" : ""}`}
           aria-label="Mobile navigation"
           inert={!mobileOpen ? true : undefined}
