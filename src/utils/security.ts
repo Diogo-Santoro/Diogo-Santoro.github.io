@@ -17,5 +17,5 @@ export function sanitizeUrl(href: string): string {
  * and case sensitivity to ensure rel="noopener noreferrer" is applied correctly.
  */
 export function isExternalUrl(href: string): boolean {
-  return /^(https?:)?\/\//i.test(href);
+  return /^(https?:)?[\\/]{2}/i.test(href);
 }
