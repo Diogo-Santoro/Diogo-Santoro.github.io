@@ -37,6 +37,7 @@ export default function Footer() {
                 code
               </span>
               GitHub
+              <span className="sr-only"> (opens in a new tab)</span>
             </a>
             <a
               href="https://linkedin.com/in/diogo-santoro"
@@ -52,6 +53,7 @@ export default function Footer() {
                 hub
               </span>
               LinkedIn
+              <span className="sr-only"> (opens in a new tab)</span>
             </a>
             <Link href="/contact" className="footer__link footer__link--primary">
               <span

@@ -4,3 +4,6 @@
 ## 2024-10-18 - Decorative Typography Visibility
 **Learning:** Decorative typographic characters like arrows (`→`, `←`, `↗`), chevrons (`>>`), and separators (`|`) are often read aloud by screen readers when included as native text nodes (e.g., "rightwards arrow", "greater than greater than"), which adds unnecessary noise and confusion for visually impaired users.
 **Action:** Always wrap these decorative typographic characters in a `<span>` with `aria-hidden="true"` to ensure they are ignored by screen readers while remaining visually present.
+## 2024-10-18 - Screen Reader Context for External Links
+**Learning:** Links that open in a new tab (using `target="_blank"`) can be disorienting for screen reader users if they are not explicitly informed of the context switch. Visual indicators (like a `↗` icon with `aria-hidden="true"`) are insufficient since they are ignored by assistive technologies.
+**Action:** When creating external links with `target="_blank"`, always include a visually hidden text segment (e.g., `<span className="sr-only"> (opens in a new tab)</span>`) inside the link to proactively inform screen reader users of the upcoming behavior.
