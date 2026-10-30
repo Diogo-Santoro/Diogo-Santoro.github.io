@@ -96,6 +96,7 @@ export default function ContactPage() {
                     <span className="contact-row__value">{link.value}</span>
                   </div>
                   <span className="contact-row__arrow" aria-hidden="true">→</span>
+                  {isExternal && <span className="sr-only"> (opens in a new tab)</span>}
                 </a>
               </ScrollReveal>
             );

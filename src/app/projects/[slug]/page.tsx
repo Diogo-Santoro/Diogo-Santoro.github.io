@@ -132,6 +132,7 @@ export default async function ProjectDetailPage({
                   style={{ fontSize: "var(--text-sm)" }}
                 >
                   {project.githubUrl.replace("https://github.com/", "")} <span aria-hidden="true">↗</span>
+                  {isGithubExternal && <span className="sr-only"> (opens in a new tab)</span>}
                 </a>
               </div>
             </ScrollReveal>
