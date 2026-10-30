@@ -8,6 +8,10 @@ import ProjectCard from "@/components/molecules/ProjectCard";
 
 type FilterOption = "All" | ProjectCategory;
 
+// ⚡ Bolt: Extract static configuration arrays outside the React component's function scope
+// to minimize client-side rendering overhead and memory allocations on re-renders.
+const filters: FilterOption[] = ["All", ...projectCategories];
+
 export default function ProjectGallery() {
   const [activeFilter, setActiveFilter] = useState<FilterOption>("All");
 
@@ -15,8 +19,6 @@ export default function ProjectGallery() {
     if (activeFilter === "All") return projects;
     return projects.filter((p) => p.category === activeFilter);
   }, [activeFilter]);
-
-  const filters: FilterOption[] = ["All", ...projectCategories];
 
   return (
     <div id="project-gallery">
