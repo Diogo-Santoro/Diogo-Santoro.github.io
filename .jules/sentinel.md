@@ -30,3 +30,7 @@
 **Vulnerability:** URL sanitization function could be bypassed by inserting control characters or whitespace into the protocol (e.g. `java\nscript:`).
 **Learning:** Browsers are permissive when parsing URLs and will often ignore whitespace and control characters when determining the protocol for execution. Simple regex matching on the raw string is insufficient.
 **Prevention:** Always strip control characters and whitespace (`[\u0000-\u001F\u007F-\u009F\s]`) before checking the protocol for dangerous schemes.
+## 2025-02-28 - Reverse Tabnabbing Bypass via Backslash Normalization
+**Vulnerability:** The URL external link check `isExternalUrl` relied on forward slashes (`/^(https?:)?\/\//i`), missing backslash normalization bypasses (e.g., `https:\\`). This could allow attackers to bypass reverse tabnabbing protections (`rel="noopener noreferrer"`) for dynamically rendered external links.
+**Learning:** Browsers normalize backslashes (`\`) to forward slashes (`/`) in URLs. A regex that only checks for forward slashes will fail to identify normalized external URLs.
+**Prevention:** Always use robust regex patterns like `/^(https?:)?[\\/]{2}/i` that account for both forward and backslashes when validating or sanitizing URLs.
