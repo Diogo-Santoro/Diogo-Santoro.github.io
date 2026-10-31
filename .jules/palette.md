@@ -1,0 +1,3 @@
+## 2024-10-31 - Respect prefers-reduced-motion Globally
+**Learning:** The application had hardcoded status dot animations disabled for users requesting reduced motion, but lacked a holistic approach. Global CSS-based transitions/animations and JS-driven layout updates (like magnetic buttons) could trigger motion sickness.
+**Action:** Always implement a global CSS catch-all block inside `@media (prefers-reduced-motion: reduce)` using `0.01ms` (to preserve JS event firing). For custom JS-driven animations running inside `requestAnimationFrame` loops, explicitly check `window.matchMedia('(prefers-reduced-motion: reduce)').matches` to return early.
