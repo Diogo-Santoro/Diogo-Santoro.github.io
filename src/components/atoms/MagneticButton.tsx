@@ -23,8 +23,11 @@ export default function MagneticButton({
   // ⚡ Bolt: Cache bounds on enter to prevent layout thrashing (synchronous reflows) during high-frequency mousemove events
   const bounds = useRef({ left: 0, top: 0, width: 0, height: 0 });
   const rafId = useRef<number | null>(null);
+  const isReducedMotion = useRef(false);
+  const targetPos = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
+    isReducedMotion.current = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     return () => {
       if (rafId.current !== null) {
         cancelAnimationFrame(rafId.current);
@@ -33,6 +36,7 @@ export default function MagneticButton({
   }, []);
 
   function handleMouseEnter() {
+    if (isReducedMotion.current) return;
     const el = ref.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
@@ -45,31 +49,38 @@ export default function MagneticButton({
   }
 
   function handleMouseMove(e: MouseEvent) {
+    if (isReducedMotion.current) return;
     const el = ref.current;
     if (!el) return;
 
-    if (rafId.current !== null) {
-      cancelAnimationFrame(rafId.current);
-    }
+    targetPos.current = {
+      x: e.pageX - bounds.current.left - bounds.current.width / 2,
+      y: e.pageY - bounds.current.top - bounds.current.height / 2,
+    };
 
-    // ⚡ Bolt: Debounce inline style updates using requestAnimationFrame to prevent main thread jank
-    rafId.current = requestAnimationFrame(() => {
-      const x = e.pageX - bounds.current.left - bounds.current.width / 2;
-      const y = e.pageY - bounds.current.top - bounds.current.height / 2;
-      el.style.transform = `translate(${x * strength}px, ${y * strength}px)`;
-    });
+    // ⚡ Bolt: Throttle RAF instead of debouncing (cancelling/requeueing)
+    // to avoid excessive closure allocations on high-polling gaming mice.
+    if (rafId.current === null) {
+      rafId.current = requestAnimationFrame(() => {
+        el.style.transform = `translate(${targetPos.current.x * strength}px, ${targetPos.current.y * strength}px)`;
+        rafId.current = null;
+      });
+    }
   }
 
   function handleMouseLeave() {
+    if (isReducedMotion.current) return;
     const el = ref.current;
     if (!el) return;
 
     if (rafId.current !== null) {
       cancelAnimationFrame(rafId.current);
+      rafId.current = null;
     }
 
     rafId.current = requestAnimationFrame(() => {
       el.style.transform = "translate(0, 0)";
+      rafId.current = null;
     });
   }
 
