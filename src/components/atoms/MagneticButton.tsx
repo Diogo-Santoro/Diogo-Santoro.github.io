@@ -33,6 +33,9 @@ export default function MagneticButton({
   }, []);
 
   function handleMouseEnter() {
+    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
     const el = ref.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
@@ -45,6 +48,9 @@ export default function MagneticButton({
   }
 
   function handleMouseMove(e: MouseEvent) {
+    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
     const el = ref.current;
     if (!el) return;
 
@@ -61,6 +67,9 @@ export default function MagneticButton({
   }
 
   function handleMouseLeave() {
+    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
     const el = ref.current;
     if (!el) return;
 

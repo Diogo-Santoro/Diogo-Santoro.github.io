@@ -1951,9 +1951,13 @@ h4 {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .header__status-dot::before,
-  .hero__status-dot::before {
-    animation: none;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
