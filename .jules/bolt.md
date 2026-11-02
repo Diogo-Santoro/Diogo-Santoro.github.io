@@ -25,3 +25,6 @@
 ## 2024-11-20 - React Array Memory Allocation and `React.memo`
 **Learning:** Hardcoding static arrays inside components causes them to be recreated every render. Additionally, child components rendering list items will re-render whenever the parent state updates, causing unnecessary processing.
 **Action:** Always extract static configuration arrays or objects outside the React component's function scope. Additionally, wrap pure, stateless list items in `React.memo()` to prevent them from re-rendering when the parent state updates.
+## 2024-11-20 - requestAnimationFrame Throttling vs Debouncing for Continuous Events
+**Learning:** For continuous high-frequency events like `mousemove`, debouncing `requestAnimationFrame` (canceling the previous RAF and creating a new one on every event) causes excessive closure allocations and GC pauses on high-polling devices (e.g., 1000Hz mice).
+**Action:** Instead of debouncing, use a throttling pattern. Store the target state (e.g., `x` and `y` coordinates) in a mutable `useRef` and only schedule a new `requestAnimationFrame` if `rafId.current` is null. Inside the RAF callback, apply the styles using the mutable ref's current values and reset the `rafId.current` to null. This drastically reduces allocations and ensures the DOM is updated efficiently at the browser's refresh rate.
