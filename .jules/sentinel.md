@@ -34,3 +34,7 @@
 **Vulnerability:** The URL external link check `isExternalUrl` relied on forward slashes (`/^(https?:)?\/\//i`), missing backslash normalization bypasses (e.g., `https:\\`). This could allow attackers to bypass reverse tabnabbing protections (`rel="noopener noreferrer"`) for dynamically rendered external links.
 **Learning:** Browsers normalize backslashes (`\`) to forward slashes (`/`) in URLs. A regex that only checks for forward slashes will fail to identify normalized external URLs.
 **Prevention:** Always use robust regex patterns like `/^(https?:)?[\\/]{2}/i` that account for both forward and backslashes when validating or sanitizing URLs.
+## 2025-02-28 - Restrict Iframe Embedding via CSP
+**Vulnerability:** The application was missing a `frame-src` directive in the Content-Security-Policy (CSP) meta tag, allowing the site to embed malicious or unexpected iframes.
+**Learning:** For static export sites that do not use iframes, `frame-src 'none';` should be explicitly added to the CSP meta tag to reduce the attack surface.
+**Prevention:** Always consider applying `frame-src 'none';` in the CSP meta tag when iframes are not part of the application's required functionality.
