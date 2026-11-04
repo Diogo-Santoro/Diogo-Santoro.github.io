@@ -22,6 +22,7 @@ export default function MagneticButton({
 
   // ⚡ Bolt: Cache bounds on enter to prevent layout thrashing (synchronous reflows) during high-frequency mousemove events
   const bounds = useRef({ left: 0, top: 0, width: 0, height: 0 });
+  const targetPos = useRef({ x: 0, y: 0 });
   const rafId = useRef<number | null>(null);
 
   useEffect(() => {
@@ -48,16 +49,19 @@ export default function MagneticButton({
     const el = ref.current;
     if (!el) return;
 
-    if (rafId.current !== null) {
-      cancelAnimationFrame(rafId.current);
-    }
+    targetPos.current = {
+      x: e.pageX - bounds.current.left - bounds.current.width / 2,
+      y: e.pageY - bounds.current.top - bounds.current.height / 2,
+    };
 
-    // ⚡ Bolt: Debounce inline style updates using requestAnimationFrame to prevent main thread jank
-    rafId.current = requestAnimationFrame(() => {
-      const x = e.pageX - bounds.current.left - bounds.current.width / 2;
-      const y = e.pageY - bounds.current.top - bounds.current.height / 2;
-      el.style.transform = `translate(${x * strength}px, ${y * strength}px)`;
-    });
+    // ⚡ Bolt: Throttle inline style updates using requestAnimationFrame to prevent main thread jank
+    // and reduce garbage collection overhead compared to debouncing.
+    if (rafId.current === null) {
+      rafId.current = requestAnimationFrame(() => {
+        el.style.transform = `translate(${targetPos.current.x * strength}px, ${targetPos.current.y * strength}px)`;
+        rafId.current = null;
+      });
+    }
   }
 
   function handleMouseLeave() {
@@ -66,11 +70,10 @@ export default function MagneticButton({
 
     if (rafId.current !== null) {
       cancelAnimationFrame(rafId.current);
+      rafId.current = null;
     }
 
-    rafId.current = requestAnimationFrame(() => {
-      el.style.transform = "translate(0, 0)";
-    });
+    el.style.transform = "translate(0, 0)";
   }
 
   const props = {
@@ -87,7 +90,12 @@ export default function MagneticButton({
     const safeHref = sanitizeUrl(href);
     const isExternal = isExternalUrl(safeHref);
     return (
-      <a {...props} href={safeHref} target={isExternal ? "_blank" : undefined} rel={isExternal ? "noopener noreferrer" : undefined}>
+      <a
+        {...props}
+        href={safeHref}
+        target={isExternal ? "_blank" : undefined}
+        rel={isExternal ? "noopener noreferrer" : undefined}
+      >
         <span>
           {children}
           {isExternal && <span className="sr-only"> (opens in a new tab)</span>}
