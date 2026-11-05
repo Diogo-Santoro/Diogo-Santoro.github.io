@@ -73,7 +73,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {process.env.NODE_ENV !== "development" && (
           <meta
             httpEquiv="Content-Security-Policy"
-            content="upgrade-insecure-requests; base-uri 'self'; object-src 'none'; form-action 'none';"
+            content="upgrade-insecure-requests; base-uri 'self'; object-src 'none'; form-action 'none'; frame-src 'none';"
           />
         )}
       </head>

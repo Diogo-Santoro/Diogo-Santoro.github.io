@@ -34,3 +34,7 @@
 **Vulnerability:** The URL external link check `isExternalUrl` relied on forward slashes (`/^(https?:)?\/\//i`), missing backslash normalization bypasses (e.g., `https:\\`). This could allow attackers to bypass reverse tabnabbing protections (`rel="noopener noreferrer"`) for dynamically rendered external links.
 **Learning:** Browsers normalize backslashes (`\`) to forward slashes (`/`) in URLs. A regex that only checks for forward slashes will fail to identify normalized external URLs.
 **Prevention:** Always use robust regex patterns like `/^(https?:)?[\\/]{2}/i` that account for both forward and backslashes when validating or sanitizing URLs.
+## 2025-02-28 - Prevent Malicious Iframe Embedding
+**Vulnerability:** The application was vulnerable to clickjacking or being embedded in malicious contexts via iframes because it lacked the `frame-src 'none';` directive in its Content-Security-Policy (CSP) meta tag.
+**Learning:** For Next.js static export applications that don't need to be embedded in iframes, adding `frame-src 'none';` to the CSP meta tag in `layout.tsx` is an effective and safe defense-in-depth measure. Note that `frame-ancestors` is preferred but requires HTTP headers which are unavailable in static exports.
+**Prevention:** Always include `frame-src 'none';` (or an appropriate restriction) in the CSP meta tag for applications that do not rely on iframing.
