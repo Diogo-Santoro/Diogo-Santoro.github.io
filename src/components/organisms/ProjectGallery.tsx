@@ -39,9 +39,34 @@ export default function ProjectGallery() {
       </div>
 
       {filteredProjects.length === 0 && (
-        <p className="text-body" style={{ textAlign: "center", marginTop: "var(--space-2xl)" }}>
-          No projects in this category yet.
-        </p>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            marginTop: "var(--space-3xl)",
+            marginBottom: "var(--space-2xl)",
+            gap: "var(--space-sm)",
+          }}
+        >
+          <span
+            className="material-symbols-outlined"
+            style={{ fontSize: "2.5rem", color: "var(--text-secondary)" }}
+            aria-hidden="true"
+          >
+            folder_off
+          </span>
+          <p className="text-body" style={{ textAlign: "center" }}>
+            No projects in this category yet.
+          </p>
+          <button
+            className="btn btn--secondary"
+            onClick={() => setActiveFilter("All")}
+            style={{ marginTop: "var(--space-sm)" }}
+          >
+            Clear filter
+          </button>
+        </div>
       )}
 
       {/* Screen reader announcement for dynamic filtering */}
