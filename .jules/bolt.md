@@ -28,3 +28,6 @@
 ## 2024-11-21 - Throttling vs Debouncing requestAnimationFrame
 **Learning:** For continuous, high-frequency events (like `mousemove` from a high-polling mouse), debouncing `requestAnimationFrame` (canceling the current RAF and immediately creating a new one) can cause excessive closure allocations and GC pauses, leading to main thread jank.
 **Action:** Instead of debouncing, *throttle* the animation frame. Store the target values in a mutable ref, and only schedule a new `requestAnimationFrame` if one is not currently active, ensuring it executes once per frame cycle.
+## 2024-11-21 - CSS Transition vs JS Animation Composite Thrashing
+**Learning:** Having a CSS `transition` property (e.g., `transition: transform 0.3s`) active on an element whose inline styles (e.g., `transform`) are being continuously updated via JS requestAnimationFrame loops (like `MagneticButton` on `mousemove`) causes the browser to attempt to "tween" between the high-frequency JS updates. This creates visual jank, composite thrashing, and unnecessary GPU/CPU overhead.
+**Action:** Always disable the CSS transition (`el.style.transition = 'none'`) when JS takes over the animation loop (e.g., on `mouseenter`), and only re-enable the CSS transition when returning control to the browser for snap-back effects (e.g., on `mouseleave`).

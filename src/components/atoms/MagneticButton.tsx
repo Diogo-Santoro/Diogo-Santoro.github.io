@@ -24,8 +24,10 @@ export default function MagneticButton({
   const bounds = useRef({ left: 0, top: 0, width: 0, height: 0 });
   const targetPos = useRef({ x: 0, y: 0 });
   const rafId = useRef<number | null>(null);
+  const prefersReducedMotion = useRef(false);
 
   useEffect(() => {
+    prefersReducedMotion.current = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     return () => {
       if (rafId.current !== null) {
         cancelAnimationFrame(rafId.current);
@@ -34,8 +36,11 @@ export default function MagneticButton({
   }, []);
 
   function handleMouseEnter() {
+    if (prefersReducedMotion.current) return;
     const el = ref.current;
     if (!el) return;
+    // ⚡ Bolt: Disable CSS transitions while JS is animating the element to prevent composite thrashing.
+    el.style.transition = 'none';
     const rect = el.getBoundingClientRect();
     bounds.current = {
       left: rect.left + window.scrollX,
@@ -46,6 +51,7 @@ export default function MagneticButton({
   }
 
   function handleMouseMove(e: MouseEvent) {
+    if (prefersReducedMotion.current) return;
     const el = ref.current;
     if (!el) return;
 
@@ -65,6 +71,7 @@ export default function MagneticButton({
   }
 
   function handleMouseLeave() {
+    if (prefersReducedMotion.current) return;
     const el = ref.current;
     if (!el) return;
 
@@ -73,6 +80,8 @@ export default function MagneticButton({
       rafId.current = null;
     }
 
+    // ⚡ Bolt: Re-enable CSS transition for the snap-back animation when JS stops taking control.
+    el.style.transition = "transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)";
     rafId.current = requestAnimationFrame(() => {
       el.style.transform = "translate(0, 0)";
       rafId.current = null;
@@ -85,7 +94,6 @@ export default function MagneticButton({
     onMouseEnter: handleMouseEnter,
     onMouseMove: handleMouseMove,
     onMouseLeave: handleMouseLeave,
-    style: { transition: "transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)" },
   };
 
   if (href) {
