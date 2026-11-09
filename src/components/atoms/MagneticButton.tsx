@@ -48,6 +48,9 @@ export default function MagneticButton({
       width: rect.width,
       height: rect.height,
     };
+    // ⚡ Bolt: Disable CSS transitions while JS is actively animating
+    // to prevent 'composite thrashing' and visual jank.
+    el.style.transition = 'none';
   }
 
   function handleMouseMove(e: MouseEvent) {
@@ -83,6 +86,8 @@ export default function MagneticButton({
     // ⚡ Bolt: Re-enable CSS transition for the snap-back animation when JS stops taking control.
     el.style.transition = "transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)";
     rafId.current = requestAnimationFrame(() => {
+      // ⚡ Bolt: Re-enable CSS transition for the smooth snap-back natively
+      el.style.transition = '';
       el.style.transform = "translate(0, 0)";
       rafId.current = null;
     });
