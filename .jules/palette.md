@@ -1,3 +1,6 @@
 ## $(date +%Y-%m-%d) - Add actionable empty state to project gallery
 **Learning:** Empty states in dynamic filtering components (like the project gallery) are often overlooked. Displaying just a plain text message can leave the user feeling stuck or confused.
 **Action:** Always provide a structured empty state containing an appropriate icon, a clear explanatory message, and most importantly, an actionable call-to-action (CTA) button (e.g., "Clear filter") to help the user recover quickly.
+## $(date +%Y-%m-%d) - Respect prefers-reduced-motion for JS and CSS animations
+**Learning:** For accessibility, it's crucial to respect the user's `prefers-reduced-motion` settings. However, using `animation: none` or `transition: none` in CSS can break JS logic that relies on `animationend` or `transitionend` events. Additionally, JS-driven animations (like mouse tracking) are not affected by CSS media queries and require explicit JS checks.
+**Action:** Use a global CSS media query `(prefers-reduced-motion: reduce)` that sets `animation-duration: 0.01ms !important`, `animation-iteration-count: 1 !important`, and `transition-duration: 0.01ms !important` to ensure events still fire. For JS-driven animations, use `window.matchMedia('(prefers-reduced-motion: reduce)').matches` to return early and bypass the animation logic.

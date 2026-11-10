@@ -25,7 +25,10 @@ export default function MagneticButton({
   const targetPos = useRef({ x: 0, y: 0 });
   const rafId = useRef<number | null>(null);
 
+  const prefersReducedMotion = useRef(false);
+
   useEffect(() => {
+    prefersReducedMotion.current = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     return () => {
       if (rafId.current !== null) {
         cancelAnimationFrame(rafId.current);
@@ -34,6 +37,7 @@ export default function MagneticButton({
   }, []);
 
   function handleMouseEnter() {
+    if (prefersReducedMotion.current) return;
     const el = ref.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
@@ -49,6 +53,8 @@ export default function MagneticButton({
   }
 
   function handleMouseMove(e: MouseEvent) {
+    if (prefersReducedMotion.current) return;
+
     const el = ref.current;
     if (!el) return;
 
@@ -68,6 +74,7 @@ export default function MagneticButton({
   }
 
   function handleMouseLeave() {
+    if (prefersReducedMotion.current) return;
     const el = ref.current;
     if (!el) return;
 
