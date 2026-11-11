@@ -65,7 +65,7 @@ export default function HomeCTA() {
                 </span>
                 Avg response: &lt; 4 hours
               </span>
-              <span>•</span>
+              <span aria-hidden="true">•</span>
               <span>Full-Time / Freelance / Contract</span>
             </div>
           </ScrollReveal>
