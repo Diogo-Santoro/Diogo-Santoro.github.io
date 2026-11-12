@@ -25,7 +25,12 @@ export default function MagneticButton({
   const targetPos = useRef({ x: 0, y: 0 });
   const rafId = useRef<number | null>(null);
 
+  // ⚡ Bolt: Store preferences in a ref rather than querying matchMedia synchronously in mousemove
+  const prefersReducedMotion = useRef(false);
+
   useEffect(() => {
+    prefersReducedMotion.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
     return () => {
       if (rafId.current !== null) {
         cancelAnimationFrame(rafId.current);
@@ -34,6 +39,8 @@ export default function MagneticButton({
   }, []);
 
   function handleMouseEnter() {
+    if (prefersReducedMotion.current) return;
+
     const el = ref.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
@@ -45,10 +52,12 @@ export default function MagneticButton({
     };
     // ⚡ Bolt: Disable CSS transitions while JS is actively animating
     // to prevent 'composite thrashing' and visual jank.
-    el.style.transition = 'none';
+    el.style.transition = "none";
   }
 
   function handleMouseMove(e: MouseEvent) {
+    if (prefersReducedMotion.current) return;
+
     const el = ref.current;
     if (!el) return;
 
@@ -68,6 +77,8 @@ export default function MagneticButton({
   }
 
   function handleMouseLeave() {
+    if (prefersReducedMotion.current) return;
+
     const el = ref.current;
     if (!el) return;
 
@@ -78,7 +89,7 @@ export default function MagneticButton({
 
     rafId.current = requestAnimationFrame(() => {
       // ⚡ Bolt: Re-enable CSS transition for the smooth snap-back natively
-      el.style.transition = '';
+      el.style.transition = "";
       el.style.transform = "translate(0, 0)";
       rafId.current = null;
     });
@@ -98,7 +109,12 @@ export default function MagneticButton({
     const safeHref = sanitizeUrl(href);
     const isExternal = isExternalUrl(safeHref);
     return (
-      <a {...props} href={safeHref} target={isExternal ? "_blank" : undefined} rel={isExternal ? "noopener noreferrer" : undefined}>
+      <a
+        {...props}
+        href={safeHref}
+        target={isExternal ? "_blank" : undefined}
+        rel={isExternal ? "noopener noreferrer" : undefined}
+      >
         <span>
           {children}
           {isExternal && <span className="sr-only"> (opens in a new tab)</span>}
